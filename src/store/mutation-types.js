@@ -1,0 +1,7 @@
+// 设置 Toke
+export const SET_TOKEN = 'SET_TOKEN'
+
+// 设置当前登陆的账号信息
+export const SET_CURRENT_PERSONAL_ACCOUNT_INFO = 'SET_CURRENT_PERSONAL_ACCOUNT_INFO'
+
+export const SET_MESYSTEM_DATA = 'SET_MESYSTEM_DATA'
