@@ -1,10 +1,10 @@
 <template>
   <div class="feature c-page">
-    <m-header title="小功能" :is-show-close-icon="false"></m-header>
+    <m-header title="小功能"></m-header>
     <div class="container">
       <ul class="view-list-group">
         <h2 class="group-title">功能</h2>
-        <!-- 请假 -->
+        <!-- 随机抽人 -->
         <router-link tag="li"
           :to="{name: 'randomSelect'}" 
           class="item">

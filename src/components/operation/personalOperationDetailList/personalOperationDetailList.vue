@@ -1,6 +1,6 @@
 <template>
   <div class="operation-detail c-page">
-    <m-header :title="`个人操作详情 - ${subTitle}`" :is-show-close-icon="false"></m-header>
+    <m-header :title="`个人操作详情 - ${subTitle}`"></m-header>
     <div class="container">
       <!-- 所有记录 -->
       <div class="all" v-show="showType === 1">

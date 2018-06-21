@@ -1,6 +1,6 @@
 <template>
   <div class="mesystem c-page">
-    <m-header :title="`${cls.clsName} 十项常规`" :is-show-close-icon="false"></m-header>
+    <m-header :title="`${cls.clsName} 十项常规`"></m-header>
     <div class="mesystem-container">
       <!-- 时间选择 -->
       <time-bar @selectedItem="weekSelect" 

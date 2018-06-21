@@ -1,6 +1,6 @@
 <template>
   <div class="setting c-page">
-    <m-header title="设置 " :is-show-close-icon="false"></m-header>
+    <m-header title="设置 "></m-header>
     <div class="information-container">
       <!-- 个人信息栏 -->
       <div class="information">
@@ -146,6 +146,7 @@
         this.setToken('')
         saveInfo(TOKEN_KEY, '')
         this.$router.push('/login')
+        location.reload()
       },
       // 修改密码成功后
       changePasswordSuccessed() {

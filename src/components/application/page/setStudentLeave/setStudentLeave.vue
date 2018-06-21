@@ -1,6 +1,7 @@
 <template>
   <div class="set-student-leave c-page">
-    <m-header title="设置学生请假"></m-header>
+    <m-header title="设置学生请假"
+      :is-show-close-icon="true"></m-header>
     <div class="container">
       <cube-form :model="leaveModel" @validate="validateHandler">
         <cube-form-group>
@@ -65,7 +66,7 @@
   import MHeader from 'base/m-header/m-header'
   import { openToast } from 'common/js/util'
   import { ERR_OK } from 'api/config'
-  import { getLeaveList, setStudentLeave } from 'api/application'
+  import { getLeaveList, askForLeave } from 'api/application'
   import SCcs from 'components/operation/components/s-ccs/s-ccs'
 
   export default {
@@ -144,7 +145,7 @@
     },
     methods: {
       applyLeave() {
-        this._setStudentLeave()
+        this._askForLeave()
       },
       showLeaveUserPicker() {
         this.isShowSCcs = true
@@ -198,28 +199,29 @@
           this.leaveTypeList = res
         })
       },
-      _setStudentLeave() {
+      _askForLeave() {
         this.requestQuery = this._initData()
-        setStudentLeave(this.requestQuery).then((res) => {
-          console.log(res)
+        askForLeave(this.requestQuery).then((res) => {
           if(res.code === ERR_OK) {
             this.$emit('applySuccessful')
             this.$router.back()
           } else {
-            openToast(this, '申请失败，请检查填写的参数', 'error')
+            openToast(this, '设置失败，请检查填写的参数', 'error')
           }
         })
       },
       _initData() {
         let arr = []
         arr.push({
+          flow_id: 1,
           user_id: this.postData.leaveUserId,
-          days: this.getDateDiff(this.postData.leaveStartTime, this.postData.leaveEndTime),
-          leave_type_id: this.postData.leaveTypeId,
-          begin_time: (this.postData.leaveStartTime + '').substr(0, 10),
-          end_time: (this.postData.leaveEndTime + '').substr(0, 10),
-          content: this.leaveModel.leaveReason,
-          parent_phone: this.leaveModel.parentPhoneNumber
+          form: {
+            leave_type_id: this.postData.leaveTypeId,
+            begin_time: (this.postData.leaveStartTime + '').substr(0, 10),
+            end_time: (this.postData.leaveEndTime + '').substr(0, 10),
+            content: this.leaveModel.leaveReason,
+            parent_phone: this.leaveModel.parentPhoneNumber
+          }
         })
         return arr
       }

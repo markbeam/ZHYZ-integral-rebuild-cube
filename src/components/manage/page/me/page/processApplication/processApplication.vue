@@ -1,16 +1,16 @@
 <template>
   <div class="process-leave c-page">
-    <m-header :title="`审批申请 - ${subTitle}`" :is-show-close-icon="false"></m-header>
+    <m-header :title="`审批申请 - ${subTitle}`"></m-header>
     <div class="container">
       <!-- 尚未审批列表 -->
       <div class="wait-process-container" v-show="showType === 1">
-        <application-list :selected-type="'wait'"
+        <application-list :show-type="'wait'"
           ref="wait"
           @selected="selectedWait"></application-list>
       </div>
       <!-- 已未审批列表 -->
       <div class="over-process-container" v-show="showType === 2">
-        <application-list :selected-type="'over'"
+        <application-list :show-type="'over'"
           ref="over"
           @selected="selectedOver"></application-list>
       </div>

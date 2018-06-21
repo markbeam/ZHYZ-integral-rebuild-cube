@@ -34,6 +34,8 @@ const MesystemDetail = () => import('../components/manage/page/me/page/mesystem/
 // 小功能
 const Feature = () => import('../components/feature/feature').then(m => m.default)
 const RandomSelect = () => import('../components/feature/page/randomSelect/randomSelect').then(m => m.default)
+// 排行榜
+const Rank = () => import('../components/manage/page/index/page/rank/rank').then(m => m.default)
 
 // 我的 > 设置 > 修改密码
 const Me = () => import('../components/manage/page/me/me').then(m => m.default)
@@ -163,6 +165,11 @@ export default new Router({
                   component: RandomSelect
                 }
               ]
+            },
+            {
+              path: 'rank',
+              name: 'rank',
+              component: Rank
             }
           ]
         },

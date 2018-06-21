@@ -53,6 +53,7 @@
   import NoResult from 'base/no-result/no-result'
   import { formatDate } from 'common/js/date'
   import { verifyApplyText } from 'common/js/util'
+  import { ERR_OK } from 'api/config'
   import { getProcessApplicationList, studentGetFinalProcessApplyList } from 'api/application'
   import { mapGetters } from 'vuex'
 
@@ -137,13 +138,15 @@
               }
               this.isContinue = false
             }
-            // 判断是否最后一页
-            if(this.applications.length >= res.page.total) {
-              this.$refs.scroll.forceUpdate()
-            } else {
-              // 每加载一次数据，控制请求页数的值 +1
-              this.pageIndex++
-              this.applications = this.applications.concat(res.data)
+            if(res.code === ERR_OK) {
+              // 判断是否最后一页
+              if(this.applications.length >= res.page.total) {
+                this.$refs.scroll.forceUpdate()
+              } else {
+                // 每加载一次数据，控制请求页数的值 +1
+                this.pageIndex++
+                this.applications = this.applications.concat(res.data)
+              }
             }
           })
         } else {

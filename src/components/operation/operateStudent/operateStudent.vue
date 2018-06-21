@@ -1,6 +1,6 @@
 <template>
   <div class="operate-student c-page">
-    <m-header title="操作学生积分" :is-show-close-icon="false"></m-header>
+    <m-header title="操作学生积分"></m-header>
     <div class="container">
       <div class="input-wrap">
         <cube-input
@@ -52,6 +52,7 @@
   import HistoryList from 'components/operation/components/history-list/history-list'
   import SStudent from 'components/operation/components/s-student/s-student'
   import { openToast, normalizeList } from 'common/js/util'
+  import { ERR_OK } from 'api/config'
   import { searchStudentByKeyword, getStuByClsId } from 'api/operation'
 
   export default {
@@ -115,19 +116,24 @@
       },
       async _getStuByClsId(id) {
         await getStuByClsId(id).then((res) => {
-          this.stuData = normalizeList(res, 'name_initials')
-          this.stuCount = res.length
+          if(res.code === ERR_OK) {
+            this.stuData = normalizeList(res.data, 'name_initials')
+            this.stuCount = res.data.length
+          }
         })
       },
       async _searchStudentByKeyword() {
         await searchStudentByKeyword(this.keyword).then((res) => {
-          if(!res.length) {
-            this.stuHasInfo = false
-          } else {
-            this.stuHasInfo = true
+          if(res.code === ERR_OK) {
+            if(!res.data.length) {
+              this.stuHasInfo = false
+            } else {
+              this.stuHasInfo = true
+            }
+
+            this.stuCount = res.data.length
+            this.stuData = normalizeList(res.data, 'name_initials')
           }
-          this.stuCount = res.length
-          this.stuData = normalizeList(res, 'name_initials')
         })
       }
     },

@@ -108,7 +108,7 @@
 <script>
   import Loading from 'base/loading/loading'
   import { normalizeList, loginFailure } from 'common/js/util'
-  import { LOGIN_ERR } from 'api/config'
+  import { ERR_OK, LOGIN_ERR } from 'api/config'
   import { getAllCampus, getClsListByCampusId, getStuByClsId } from 'api/operation'
 
   // 不同类型
@@ -340,7 +340,7 @@
           if(res.code === LOGIN_ERR) {
             loginFailure()
           }
-          this.camData = normalizeList(res, 'name')
+          this.camData = normalizeList(res.data, 'name')
           this.isShowLoading = false
         })
       },
@@ -351,8 +351,10 @@
           if(res.code === LOGIN_ERR) {
             loginFailure()
           }
-          this.clsData = normalizeList(res, 'code')
-          this.isShowLoading = false
+          if(res.code === ERR_OK) {
+            this.clsData = normalizeList(res.data, 'code')
+            this.isShowLoading = false
+          }
         })
       },
       // 根据班级 id 获取学生
@@ -362,7 +364,7 @@
           if(res.code === LOGIN_ERR) {
             loginFailure()
           }
-          this.stuData = normalizeList(res, 'name_initials')
+          this.stuData = normalizeList(res.data, 'name_initials')
           this.isShowLoading = false
         })
       }

@@ -81,11 +81,11 @@
             </li>
             <li class="bar-item">
               <p class="title">基础积分</p>
-              <p class="score-text">{{ personalInfo.teacher_score_basic }}</p>
+              <p class="score-text">{{ personalInfo.tea_basic_score }}</p>
             </li>
             <li class="bar-item">
               <p class="title">拓展积分</p>
-              <p class="score-text">{{ personalInfo.teacher_score_extend }}</p>
+              <p class="score-text">{{ personalInfo.tea_extra_score }}</p>
             </li>
           </ul>
         </div>
@@ -104,6 +104,30 @@
                 </p>
               </div>
             </li>
+            <!-- 查看本班操作情况 -->
+            <router-link tag="li" :to="{name: 'me'}" class="item">
+              <div class="wrap">
+                <p class="title">
+                  <i class="zhyz-neirongyingxiao"></i>
+                  查看本班操作情况
+                </p>
+                <p class="text">
+                  <i class="zhyz-right"></i>
+                </p>
+              </div>
+            </router-link>
+            <!-- 查看本班考勤情况 -->
+            <router-link tag="li" :to="{name: 'me'}" class="item">
+              <div class="wrap">
+                <p class="title">
+                  <i class="zhyz-neirongyingxiao"></i>
+                  查看本班考勤情况
+                </p>
+                <p class="text">
+                  <i class="zhyz-right"></i>
+                </p>
+              </div>
+            </router-link>
             <!-- 审批申请 -->
             <router-link tag="li" :to="{name: 'processapplication'}" class="item">
               <div class="wrap">
@@ -127,11 +151,11 @@
             <!-- 基础积分 -->
             <li class="bar-item">
               <p class="title">总积分</p>
-              <p class="score-text">{{ personalInfo.student_score_total }}</p>
+              <p class="score-text">{{ personalInfo.stu_total_score }}</p>
             </li>
             <li class="bar-item">
               <p class="title">已换购积分</p>
-              <p class="score-text">{{ personalInfo.student_score_exchange }}</p>
+              <p class="score-text">{{ personalInfo.stu_exchange_score }}</p>
             </li>
             <li class="bar-item">
               <p class="title">目前积分</p>
@@ -139,7 +163,7 @@
             </li>
             <li class="bar-item">
               <p class="title">德育分</p>
-              <p class="score-text">{{ personalInfo.student_moral_edu_score }}</p>
+              <p class="score-text">{{ personalInfo.stu_moral_edu_score }}</p>
             </li>
           </ul>
         </div>
@@ -159,6 +183,18 @@
                 </p>
               </div>
             </li>
+            <!-- 查看本班操作情况 -->
+            <router-link tag="li" :to="{name: 'me'}" class="item">
+              <div class="wrap">
+                <p class="title">
+                  <i class="zhyz-neirongyingxiao"></i>
+                  查看本班操作情况
+                </p>
+                <p class="text">
+                  <i class="zhyz-right"></i>
+                </p>
+              </div>
+            </router-link>
             <!-- 我的申请 -->
             <router-link tag="li" :to="{name: 'myApplication'}" class="item">
               <div class="wrap">
@@ -238,7 +274,7 @@
     computed: {
       // 学生当前的积分，总分 - 以换购的积分
       currentScore() {
-        return this.personalInfo.student_score_total - this.personalInfo.student_score_exchange
+        return this.personalInfo.stu_total_score - this.personalInfo.stu_moral_edu_score
       },
       ...mapGetters([
         'personalInfo'

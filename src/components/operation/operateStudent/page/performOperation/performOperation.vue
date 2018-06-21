@@ -1,6 +1,6 @@
 <template>
   <div class="perform-operation c-page">
-    <m-header title="执行操作确认"></m-header>
+    <m-header title="执行操作确认" :is-show-close-icon="true"></m-header>
     <div class="container">
       <cube-scroll 
         ref="scroll"
@@ -234,7 +234,9 @@
             if(res.code === LOGIN_ERR) {
               loginFailure()
             }
-            data = res
+            if(res.code === ERR_OK) {
+              data = res.data
+            }
           })
         } else {
           // 选择完项目后
@@ -242,8 +244,10 @@
             if(res.code === LOGIN_ERR) {
               loginFailure()
             }
-            data = res
-            this.tmpData = res
+            if(res.code === ERR_OK) {
+              data = res.data
+              this.tmpData = res.data
+            }
           })
         }
         // refill panel(index + 1) data
@@ -292,7 +296,9 @@
       // 根据传进来学生的 data 获取学生详细信息
       _getStudentInfoById() {
         getStudentInfoById(this.data[0].id).then((res) => {
-          this.studentData = res
+          if(res.code === ERR_OK) {
+            this.studentData = res.data
+          }
         })
       },
       // 当操作学生积分后更新个人信息

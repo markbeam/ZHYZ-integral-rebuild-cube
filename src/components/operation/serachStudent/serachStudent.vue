@@ -1,6 +1,6 @@
 <template>
   <div class="search-student c-page">
-    <m-header title="搜索学生" :is-show-close-icon="false"></m-header>
+    <m-header title="搜索学生"></m-header>
     <div class="container">
       <div class="input-wrap">
         <cube-input
@@ -29,7 +29,7 @@
       :can-multiple-choice="false"
       @selectedStudent="selectedStudent"></s-student>
     <transition name="slide">
-      <router-view :data="selectData"></router-view>
+      <router-view></router-view>
     </transition>
   </div>
 </template>
@@ -50,8 +50,7 @@
         stuHasInfo: true,
         stuSubtitle: '',
         isShowSCcs: false, // 手动选择 组件显示
-        isShowSStudent: false, // 搜索 & 历史 组件显示
-        selectData: null
+        isShowSStudent: false // 搜索 & 历史 组件显示
       }
     },
     methods: {
@@ -72,9 +71,11 @@
       },
       // 选择学生后
       selectedStudent(item) {
-        this.selectData = item
         this.$router.push({
-          name: 'studentInfo'
+          name: 'studentInfo',
+          params: {
+            data: item
+          }
         })
       },
       async _searchStudentByKeyword() {

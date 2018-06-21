@@ -1,6 +1,7 @@
 <template>
   <div class="mesystem c-page">
-    <m-header :title="`${campusData.name} 请假情况`"></m-header>
+    <m-header :title="`${campusData.name} 请假情况`"
+      :is-show-close-icon="true"></m-header>
     <div class="container">
       <!-- 时间选择 -->
       <time-bar @selectedItem="daySelect" 

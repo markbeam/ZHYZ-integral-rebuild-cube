@@ -20,7 +20,7 @@
       },
       isShowCloseIcon: {
         type: Boolean,
-        default: true
+        default: false
       },
       backPage: {
         type: String,
@@ -43,6 +43,7 @@
     position: relative
     width: 100%
     height: 50px
+    box-shadow: 0px 1px 2px $color-transparent-black-i
     color: $color-head
     background-color: $color-white
     .back

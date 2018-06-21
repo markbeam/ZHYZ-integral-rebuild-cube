@@ -5,7 +5,7 @@ import { TOKEN_KEY } from 'common/js/config'
 // get 全部校区
 export function getAllCampus() {
   let token = loadInfo(TOKEN_KEY)
-  const url = `${process.env.API_ROOT}/campus/all`
+  const url = `${process.env.API_ROOT}/campus`
 
   return axios.get(url, {
     headers: {
@@ -37,7 +37,7 @@ export function getClsListByCampusId(campusId) {
 // get 全部班级信息
 export function getAllClsList() {
   let token = loadInfo(TOKEN_KEY)
-  const url = `${process.env.API_ROOT}/cls/all`
+  const url = `${process.env.API_ROOT}/cls`
   
   return axios.get(url, {
     headers: {
@@ -143,7 +143,7 @@ export function getStudentInfoById(stuId) {
 // 根据 关键字（姓名，学号） 查找学生信息
 export function searchStudentByKeyword(keyword) {
   let token = loadInfo(TOKEN_KEY)
-  const url = `${process.env.API_ROOT}/student/search/all`
+  const url = `${process.env.API_ROOT}/student/search`
 
   const data = Object.assign({}, {
     keyword: keyword
@@ -164,7 +164,7 @@ export function searchStudentByKeyword(keyword) {
 // get 分类
 export function getAllCategory(type, itemType) {
   let token = loadInfo(TOKEN_KEY)
-  const url = `${process.env.API_ROOT}/score_category/all`
+  const url = `${process.env.API_ROOT}/score_category`
 
   return axios.get(url, {
     headers: {

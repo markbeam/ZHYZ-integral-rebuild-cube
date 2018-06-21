@@ -1,6 +1,7 @@
 <template>
   <div class="personal-operation-detail c-page">
-    <m-header title="详情"></m-header>
+    <m-header title="详情"
+      :is-show-close-icon="true"></m-header>
     <div class="container">
       <operation-detail :data="data"></operation-detail>
     </div>

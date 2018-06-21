@@ -1,6 +1,6 @@
 <template>
   <div class="operate-student c-page">
-    <m-header title="操作班级积分" :is-show-close-icon="false"></m-header>
+    <m-header title="操作班级积分"></m-header>
     <div class="container">
       <div class="btn-container">
         <cube-button :light="true" @click.native="manualSelectCls">选择班级</cube-button>

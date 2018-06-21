@@ -1,6 +1,7 @@
 <template>
   <div class="random-select c-page">
-    <m-header title="随机抽人"></m-header>
+    <m-header title="随机抽人"
+      :is-show-close-icon="true"></m-header>
     <div class="container">
       <cube-scroll :data="finalSelectedList">
         <!-- 操作部分 -->

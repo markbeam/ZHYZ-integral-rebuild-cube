@@ -1,6 +1,8 @@
 <template>
   <div class="mesystem-list c-page">
-    <m-header :title="mesystemData.title" back-page="/me"></m-header>
+    <m-header :title="mesystemData.title"
+      :is-show-close-icon="true"
+      back-page="/me"></m-header>
     <div class="container">
       <cube-scroll 
         :data="[field]" 

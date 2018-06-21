@@ -1,6 +1,8 @@
 <template>
   <div class="operation-detail c-page">
-    <m-header :title="mesystemData.subTitle" back-page="/me"></m-header>
+    <m-header :title="mesystemData.subTitle" 
+      :is-show-close-icon="true"
+      back-page="/me"></m-header>
     <div class="container">
       <mesystem-list @selected="selected"></mesystem-list>
     </div>

@@ -147,7 +147,7 @@
         let arr = []
         arr.push({
           account: this.userLogin,
-          password: md5(`${this.userPassword}`)
+          password: md5(this.userPassword)
         })
         return arr
       },

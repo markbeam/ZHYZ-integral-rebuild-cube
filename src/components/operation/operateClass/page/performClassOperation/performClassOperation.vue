@@ -1,6 +1,6 @@
 <template>
   <div class="perform-operation c-page">
-    <m-header title="执行操作确认"></m-header>
+    <m-header title="执行操作确认" :is-show-close-icon="true"></m-header>
     <div class="container">
       <cube-scroll 
         ref="scroll"

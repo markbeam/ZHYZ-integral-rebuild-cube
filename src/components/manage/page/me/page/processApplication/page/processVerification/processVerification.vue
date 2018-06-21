@@ -1,6 +1,8 @@
 <template>
   <div class="process-verification c-page">
-    <m-header title="审核确认" back-page="/me"></m-header>
+    <m-header title="审核确认" 
+      :is-show-close-icon="true"
+      back-page="/me"></m-header>
     <div class="container">
       <cube-scroll 
         ref="scroll"

@@ -1,6 +1,8 @@
 <template>
   <div class="change-password c-page">
-    <m-header title="修改密码" back-page="/me"></m-header>
+    <m-header title="修改密码" 
+      :is-show-close-icon="true"
+      back-page="/me"></m-header>
     <div class="form-container">
       <div class="item">
         <p class="title">旧密码：</p>
@@ -63,8 +65,6 @@
         changePassword(this.requestQuery).then((res) => {
           if(res.code === ERR_OK) {
             this.$emit('changePasswordSuccessed')
-            this.oldPassword = ''
-            this.newPassword = ''
             this.$router.back()
           } else {
             openToast(this, res.msg, 'error')

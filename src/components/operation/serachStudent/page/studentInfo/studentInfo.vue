@@ -1,6 +1,7 @@
 <template>
   <div class="student-info c-page">
-    <m-header :title="`${data.name} 信息`"></m-header>
+    <m-header :title="`${data.name} 信息`"
+      :is-show-close-icon="true"></m-header>
     <div class="container">
       <!-- 头像 icon -->
       <div class="avatar-container">
@@ -87,19 +88,15 @@
   import { getStudentCreditById } from 'api/index'
 
   export default {
-    props: {
-      data: {
-        Type: Object,
-        default: null
-      }
-    },
     data() {
       return {
+        data: this.$route.params.data,
         totalCredit: 0
       }
     },
     created() {
-      if(!this.data.id) {
+      console.log(this.$route.params.data)
+      if(!this.$route.params.data) {
         this.$router.back()
       }
       this._getStudentCreditById()

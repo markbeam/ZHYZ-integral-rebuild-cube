@@ -1,6 +1,7 @@
 <template>
   <div class="leave c-page">
-    <m-header title="请假"></m-header>
+    <m-header title="请假"
+      :is-show-close-icon="true"></m-header>
     <div class="container">
       <cube-form :model="leaveModel" @validate="validateHandler">
         <cube-form-group>
@@ -38,8 +39,8 @@
               @select="dateEndSelectHandler"></cube-date-picker>
           </cube-form-item>
           <!-- 家长电话 -->
-          <cube-form-item :field="fields[3]" ></cube-form-item>
-          <cube-form-item :field="fields[4]" ></cube-form-item>
+          <cube-form-item :field="fields[3]"></cube-form-item>
+          <cube-form-item :field="fields[4]"></cube-form-item>
         </cube-form-group>
         <cube-form-group>
           <cube-button type="submit" 
@@ -184,12 +185,15 @@
       _initData() {
         let arr = []
         arr.push({
-          days: this.getDateDiff(this.postData.leaveStartTime, this.postData.leaveEndTime),
-          leave_type_id: this.postData.leaveTypeId,
-          begin_time: (this.postData.leaveStartTime + '').substr(0, 10),
-          end_time: (this.postData.leaveEndTime + '').substr(0, 10),
-          content: this.leaveModel.leaveReason,
-          parent_phone: this.leaveModel.parentPhoneNumber
+          flow_id: 1,
+          user_id: 0,
+          form: {
+            leave_type_id: this.postData.leaveTypeId,
+            begin_time: (this.postData.leaveStartTime + '').substr(0, 10),
+            end_time: (this.postData.leaveEndTime + '').substr(0, 10),
+            content: this.leaveModel.leaveReason,
+            parent_phone: this.leaveModel.parentPhoneNumber
+          }
         })
         return arr
       }

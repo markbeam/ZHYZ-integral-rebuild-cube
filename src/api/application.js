@@ -21,7 +21,7 @@ export function getLeaveList() {
 // 申请请假
 export function askForLeave(query) {
   let token = loadInfo(TOKEN_KEY)
-  const url = `${process.env.API_ROOT}/leave`
+  const url = `${process.env.API_ROOT}/flow/instance`
 
   const data = Object.assign({}, ...query)
 
@@ -39,7 +39,7 @@ export function askForLeave(query) {
 // 获取 全部 / 已审批 / 未审批 列表（不包含最终结果）
 export function getProcessApplicationList(filter, page = 1) {
   let token = loadInfo(TOKEN_KEY)
-  const url = `${process.env.API_ROOT}/leave/approval`
+  const url = `${process.env.API_ROOT}/flow/about_me`
 
   return axios.get(url, {
     headers: {
@@ -56,29 +56,10 @@ export function getProcessApplicationList(filter, page = 1) {
   })
 }
 
-// 获取 全部 / 已审批 / 未审批 列表（不包含最终结果）
-export function getFinalProcessApplyList(page = 1) {
-  let token = loadInfo(TOKEN_KEY)
-  const url = `${process.env.API_ROOT}/leave/approval`
-
-  return axios.get(url, {
-    headers: {
-      'XX-Token': token
-    },
-    params: {
-      page: page
-    }
-  }).then((res) => {
-    return Promise.resolve(res.data)
-  }).catch((err) => {
-    console.log(err)
-  })
-}
-
 // （学生）获取 全部 / 已审批 / 未审批 列表（不包含最终结果）
 export function studentGetFinalProcessApplyList(page = 1) {
   let token = loadInfo(TOKEN_KEY)
-  const url = `${process.env.API_ROOT}/leave/my`
+  const url = `${process.env.API_ROOT}/flow/my_sponsor`
 
   return axios.get(url, {
     headers: {
@@ -103,24 +84,6 @@ export function approvalApply(leaveId, status, summary) {
     status: status,
     summary: summary
   })
-
-  return axios.post(url, data, {
-    headers: {
-      'XX-Token': token
-    }
-  }).then((res) => {
-    return Promise.resolve(res.data)
-  }).catch((err) => {
-    console.log(err)
-  })
-}
-
-// 最终审批
-export function setStudentLeave(query) {
-  let token = loadInfo(TOKEN_KEY)
-  const url = `${process.env.API_ROOT}/leave/others`
-
-  const data = Object.assign({}, ...query)
 
   return axios.post(url, data, {
     headers: {

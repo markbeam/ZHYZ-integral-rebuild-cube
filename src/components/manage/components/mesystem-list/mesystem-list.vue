@@ -20,8 +20,8 @@
                 <span class="time" v-if="item.create_time">{{ item.create_time | formatDate }}</span>
               </div>
               <div class="right">
-                <p class="add-subtrac-score" 
-                :style="{'color': item.score > 0 ? '#12b7f5' : '#f62836'}">{{ padLeftZero(item.score) }}</p>
+                <p class="add-subtrac-score"
+                :style="{'color': item.cls_score > 0 ? '#12b7f5' : '#f62836'}">{{ padLeftZero(item.cls_score) }}</p>
               </div>
             </div>
           </li>

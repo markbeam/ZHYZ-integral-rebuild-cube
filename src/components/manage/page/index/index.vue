@@ -15,10 +15,11 @@
             auto-play
             :interval="3000"></cube-slide>
         </div>
-        <!-- 功能按钮 -->
-        <div class="btn-container">
+        <!-- 功能按钮 管理员 & 教师 -->
+        <div class="btn-container"
+          v-if="personalInfo.user_type === '教师' || personalInfo.user_type === '管理员'">
           <ul class="btn-list">
-            <li class="item" v-if="personalInfo.user_type !== '学生'">
+            <li class="item">
               <router-link tag="div" 
                 class="wrap"
                 :to="{name: 'operateStudent'}">
@@ -51,10 +52,32 @@
                 :to="{name: 'application'}">
                 <!-- icon 图片 -->
                 <div class="icon ic-apply"></div>
-                <p class="text">申请</p>
+                <p class="text">查看申请</p>
               </router-link>
             </li>
-            <li class="item" v-if="personalInfo.user_type === '学生'">
+          </ul>
+          <!-- 2 -->
+          <ul class="btn-list">
+            <!-- 操作班级积分 -->
+            <li class="item">
+              <router-link tag="div" 
+                class="wrap"
+                :to="{name: 'operateClass'}">
+                <!-- icon 图片 -->
+                <div class="icon ic-operate-student"></div>
+                <p class="text">操作班级积分</p>
+              </router-link>
+            </li>
+            <li class="item">
+              <router-link tag="div" 
+                class="wrap"
+                :to="{name: 'rank'}">
+                <!-- icon 图片 -->
+                <div class="icon ic-apply"></div>
+                <p class="text">积分排行榜</p>
+              </router-link>
+            </li>
+            <li class="item">
               <router-link tag="div" 
                 class="wrap"
                 :to="{name: 'feature'}">
@@ -64,17 +87,41 @@
               </router-link>
             </li>
           </ul>
-          <ul class="btn-list" v-if="personalInfo.user_type === '教师' || personalInfo.user_type === '管理员'">
-            <!-- 操作班级积分 -->
-            <li class="item" v-if="personalInfo.user_type !== '学生'">
+        </div>
+        <!-- 功能按钮 学生 -->
+        <div class="btn-container"
+          v-if="personalInfo.user_type === '学生'">
+          <ul class="btn-list">
+            <li class="item">
               <router-link tag="div" 
                 class="wrap"
-                :to="{name: 'operateClass'}">
+                :to="{name: 'searchStudent'}">
                 <!-- icon 图片 -->
-                <div class="icon ic-operate-student"></div>
-                <p class="text">操作班级积分</p>
+                <div class="icon ic-search-student"></div>
+                <p class="text">查询学生</p>
               </router-link>
             </li>
+            <li class="item">
+              <router-link tag="div" 
+                class="wrap"
+                :to="{name: 'personalOperationDetailList'}">
+                <!-- icon 图片 -->
+                <div class="icon ic-operate-detail"></div>
+                <p class="text">操作详情</p>
+              </router-link>
+            </li>
+            <li class="item">
+              <router-link tag="div" 
+                class="wrap"
+                :to="{name: 'application'}">
+                <!-- icon 图片 -->
+                <div class="icon ic-apply"></div>
+                <p class="text">申请</p>
+              </router-link>
+            </li>
+          </ul>
+          <!-- 2 -->
+          <ul class="btn-list">
             <!-- 小功能 -->
             <li class="item">
               <router-link tag="div" 
@@ -83,6 +130,15 @@
                 <!-- icon 图片 -->
                 <div class="icon ic-feature"></div>
                 <p class="text">小功能</p>
+              </router-link>
+            </li>
+            <li class="item">
+              <router-link tag="div" 
+                class="wrap"
+                :to="{name: 'rank'}">
+                <!-- icon 图片 -->
+                <div class="icon ic-search-student"></div>
+                <p class="text">积分排行榜</p>
               </router-link>
             </li>
           </ul>
