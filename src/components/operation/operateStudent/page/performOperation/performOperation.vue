@@ -307,7 +307,9 @@
           if(res.code === LOGIN_ERR) {
             loginFailure()
           }
-          this.setPersonalInfo(res)
+          if(res.code === ERR_OK) {
+            this.setPersonalInfo(res.data)
+          }
         })
       },
       // 操作学生 api

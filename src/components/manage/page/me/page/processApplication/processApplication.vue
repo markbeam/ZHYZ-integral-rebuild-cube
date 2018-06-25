@@ -4,13 +4,13 @@
     <div class="container">
       <!-- 尚未审批列表 -->
       <div class="wait-process-container" v-show="showType === 1">
-        <application-list :show-type="'wait'"
+        <application-list :show-type="0"
           ref="wait"
           @selected="selectedWait"></application-list>
       </div>
       <!-- 已未审批列表 -->
       <div class="over-process-container" v-show="showType === 2">
-        <application-list :show-type="'over'"
+        <application-list :show-type="1"
           ref="over"
           @selected="selectedOver"></application-list>
       </div>
@@ -73,8 +73,8 @@
         this.subTitle = item.text
       },
       showOver(item) {
-        this.subTitle = item.text
         this.showType = SHOW_OVER
+        this.subTitle = item.text
       },
       clickHandler(item) {
         if(item.action) {

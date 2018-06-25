@@ -18,7 +18,7 @@ export function getLeaveList() {
   })
 }
 
-// 申请请假
+// 申请请假 & 留宿
 export function askForLeave(query) {
   let token = loadInfo(TOKEN_KEY)
   const url = `${process.env.API_ROOT}/flow/instance`
@@ -37,7 +37,7 @@ export function askForLeave(query) {
 }
 
 // 获取 全部 / 已审批 / 未审批 列表（不包含最终结果）
-export function getProcessApplicationList(filter, page = 1) {
+export function getProcessApplicationList(status, page = 1) {
   let token = loadInfo(TOKEN_KEY)
   const url = `${process.env.API_ROOT}/flow/about_me`
 
@@ -46,7 +46,7 @@ export function getProcessApplicationList(filter, page = 1) {
       'XX-Token': token
     },
     params: {
-      filter: filter,
+      status: status,
       page: page
     }
   }).then((res) => {
@@ -76,9 +76,9 @@ export function studentGetFinalProcessApplyList(page = 1) {
 }
 
 // 最终审批
-export function approvalApply(leaveId, status, summary) {
+export function approvalApply(flowInstanceId, status, summary) {
   let token = loadInfo(TOKEN_KEY)
-  const url = `${process.env.API_ROOT}/leave/approval/${leaveId}`
+  const url = `${process.env.API_ROOT}/flow/approve/${flowInstanceId}`
 
   const data = Object.assign({}, {
     status: status,

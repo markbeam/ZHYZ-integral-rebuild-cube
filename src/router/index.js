@@ -25,6 +25,7 @@ const PersonalOperationDetail = () => import('../components/operation/personalOp
 const Application = () => import('../components/application/application').then(m => m.default)
 const Leave = () => import('../components/application/page/leave/leave').then(m => m.default)
 const SetStudentLeave = () => import('../components/application/page/setStudentLeave/setStudentLeave').then(m => m.default)
+const Bestow = () => import('../components/application/page/bestow/bestow').then(m => m.default)
 const ViewSchoolLeave = () => import('../components/application/page/viewSchoolLeave/viewSchoolLeave').then(m => m.default)
 // 十项常规
 const Mesystem = () => import('../components/manage/page/me/page/mesystem/mesystem').then(m => m.default)
@@ -46,7 +47,7 @@ const ViewOwnCredit = () => import('../components/manage/page/me/page/viewOwnCre
 // 审批请假
 const ProcessApplication = () => import('../components/manage/page/me/page/processApplication/processApplication').then(m => m.default)
 const ProcessVerification = () => import('../components/manage/page/me/page/processApplication/page/processVerification/processVerification').then(m => m.default)
-// 我的申请（= 老师 / 管理员 -> 审批请假）
+// 我的申请（= 老师 / 用户 -> 审批请假）
 const MyApplication = () => import('../components/manage/page/me/page/myApplication/myApplication').then(m => m.default)
 
 export default new Router({
@@ -146,6 +147,11 @@ export default new Router({
                   path: 'setStudentLeave', // 设置学生请假
                   name: 'setStudentLeave',
                   component: SetStudentLeave
+                },
+                {
+                  path: 'bestow', // 留宿申请
+                  name: 'bestow',
+                  component: Bestow
                 },
                 {
                   path: 'viewSchoolLeave', // 查看本校请假情况

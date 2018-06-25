@@ -26,14 +26,14 @@
       </div>
     </div>
     <div class="container">
-      <!-- 管理员 -->
-      <div class="administrator" v-if="personalInfo.user_type === '管理员'">
+      <!-- 用户 -->
+      <div class="administrator" v-if="personalInfo.user_type === '用户'">
         <!-- 角色 -->
         <div class="integral-container">
           <ul class="score-list">
             <li class="bar-item">
               <p class="title">角色</p>
-              <p class="score-text" v-show="!personalInfo.roles[0]">超级管理员</p>
+              <p class="score-text" v-show="!personalInfo.roles[0]">超级用户</p>
               <p class="score-text" v-show="personalInfo.roles[0]" v-for="item in personalInfo.roles">{{ item.name }}</p>
             </li>
           </ul>
@@ -256,7 +256,7 @@
         //   })
         // } else if(this.personalInfo.user_type === '教师') {
         //   this.$refs.SCcs.show()
-        // } else if(this.personalInfo.user_type === '管理员') {
+        // } else if(this.personalInfo.user_type === '用户') {
         //   this.$refs.SCcs.show()
         // }
         this.$refs.SCcs.show()

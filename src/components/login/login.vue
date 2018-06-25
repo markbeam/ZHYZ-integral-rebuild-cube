@@ -29,14 +29,13 @@
           <i class="icon zhyz-user-password"></i>
           <input type="password" 
             class="user-password" 
-            @keydown.enter="runLogin" 
+            @keydown.prevent.enter="runLogin" 
             v-show="!isShowPwd" 
             v-model="userPassword" 
             placeholder="密码" 
             maxlength="15">
           <input type="text" 
             class="user-password" 
-            @keydown.enter="runLogin" 
             v-show="isShowPwd" 
             v-model="userPassword" 
             placeholder="密码" 
@@ -75,6 +74,7 @@
   import { openToast } from 'common/js/util'
   import { ERR_OK } from 'api/config'
   import { checkLogin } from 'api/login'
+  import { getPersonalInfo } from 'api/index'
   import { mapMutations } from 'vuex'
 
   export default {
@@ -123,6 +123,7 @@
             // 保存 token 到本地存储
             saveInfo(TOKEN_KEY, res.data.token)
             this.setToken(res.data.token)
+            this._getPersonalInfo()
             if(this.isSavePwd) {
               // 保存登陆账号到本地存储
               saveInfo(LOGIN_KEY, {
@@ -136,11 +137,20 @@
                 userPassword: ''
               })
             }
-            this.$router.push('/index')
           } else {
             openToast(this, res.msg, 'error')
           }
           this.$refs.fullscreenLoading.hide()
+        })
+      },
+      // 用这个请求判断是否正常登陆
+      _getPersonalInfo() {
+        getPersonalInfo().then((res) => {
+          if(res.code === ERR_OK) {
+            this.setPersonalInfo(res.data) // 保存个人信息存到 vuex 里
+            openToast(this, '登录成功')
+            this.$router.push('/index')
+          }
         })
       },
       _initData() {
@@ -152,7 +162,8 @@
         return arr
       },
       ...mapMutations({
-        setToken: 'SET_TOKEN'
+        setToken: 'SET_TOKEN',
+        setPersonalInfo: 'SET_CURRENT_PERSONAL_ACCOUNT_INFO'
       })
     }
   }

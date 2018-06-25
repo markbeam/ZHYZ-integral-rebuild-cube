@@ -1,31 +1,14 @@
 <template>
-  <div class="set-student-leave c-page">
-    <m-header title="设置学生请假"
+  <div class="leave c-page">
+    <m-header title="留宿"
       :is-show-close-icon="true"></m-header>
     <div class="container">
       <cube-form :model="leaveModel" @validate="validateHandler">
         <cube-form-group>
-          <!-- 选择学生 -->
-          <cube-form-item :field="fields[0]">
-            <cube-button @click="showLeaveUserPicker" 
-              class="date-time-btn">{{ leaveModel.leaveUser || '请选择学生' }}</cube-button>
-              <!-- 手动选择时弹出的选择组件 -->
-              <s-ccs ref="SCcs"
-                style="z-index: 31"
-                :can-multiple-choice="false"
-                @selectedStudent="selectedStudent"></s-ccs>
-          </cube-form-item>
-          <!-- 请假类型 -->
-          <cube-form-item :field="fields[1]">
-            <cube-button @click="showLeaveTypePicker" 
-              class="date-time-btn">{{ leaveModel.leaveType || '请选择请假类型' }}</cube-button>
-            <cube-picker ref="leaveTypePicker" 
-              title="选择请假类型"
-              :data="[leaveTypeList]"
-              @select="selectLeaveType"></cube-picker>
-          </cube-form-item>
+          <!-- 留宿房间号 -->
+          <cube-form-item :field="fields[0]"></cube-form-item>
           <!-- 开始时间 -->
-          <cube-form-item :field="fields[2]" >
+          <cube-form-item :field="fields[1]" >
             <cube-button @click="showDateStartPicker" 
               class="date-time-btn">{{ leaveModel.dateStartTimeValue || '请选择开始时间' }}</cube-button>
             <cube-date-picker ref="dateStartPicker" 
@@ -37,7 +20,7 @@
               @select="dateStartSelectHandler"></cube-date-picker>
           </cube-form-item>
           <!-- 结束时间 -->
-          <cube-form-item :field="fields[3]" >
+          <cube-form-item :field="fields[2]" >
             <cube-button @click="showDateEndPicker" 
               class="date-time-btn">{{ leaveModel.dateEndTimeValue || '请选择结束时间' }}</cube-button>
             <cube-date-picker ref="dateEndPicker" 
@@ -49,8 +32,8 @@
               @select="dateEndSelectHandler"></cube-date-picker>
           </cube-form-item>
           <!-- 家长电话 -->
-          <cube-form-item :field="fields[4]" ></cube-form-item>
-          <cube-form-item :field="fields[5]" ></cube-form-item>
+          <cube-form-item :field="fields[3]"></cube-form-item>
+          <cube-form-item :field="fields[4]"></cube-form-item>
         </cube-form-group>
         <cube-form-group>
           <cube-button type="submit" 
@@ -68,17 +51,14 @@
   import { openToast } from 'common/js/util'
   import { ERR_OK } from 'api/config'
   import { getLeaveList, askForLeave } from 'api/application'
-  import SCcs from 'components/operation/components/s-ccs/s-ccs'
 
   export default {
     data() {
       return {
-        isShowSCcs: false,
         requestQuery: null,
         leaveTypeList: null,
         leaveModel: {
-          leaveUser: '',
-          leaveType: '',
+          roomNumber: '',
           dateStartTimeValue: '',
           dateEndTimeValue: '',
           parentPhoneNumber: '',
@@ -86,17 +66,14 @@
         },
         fields: [
           {
-            modelKey: 'leaveUser',
-            label: '请假学生：',
-             rules: {
+            type: 'input',
+            modelKey: 'roomNumber',
+            label: '宿舍号：',
+            rules: {
               required: true
-            }
-          },
-          {
-            modelKey: 'leaveType',
-            label: '请假类型：',
-             rules: {
-              required: true
+            },
+            props: {
+              placeholder: '请输入'
             }
           },
           {
@@ -119,12 +96,15 @@
             label: '家长电话：',
             props: {
               placeholder: '请输入'
+            },
+            rules: {
+              required: true
             }
           },
           {
             type: 'textarea',
             modelKey: 'leaveReason',
-            label: '请假事由：',
+            label: '留宿事由：',
             props: {
               placeholder: '请输入事由'
             },
@@ -134,7 +114,6 @@
           }
         ],
         postData: {
-          leaveUserId: 0,
           leaveTypeId: 0,
           leaveStartTime: 0,
           leaveEndTime: 0
@@ -148,21 +127,6 @@
       applyLeave() {
         this._askForLeave()
       },
-      showLeaveUserPicker() {
-        this.$refs.SCcs.show()
-      },
-      hideSCcs() {
-        this.$refs.SCcs.hide()
-      },
-      selectedStudent(item) {
-        this.postData.leaveUserId = item.id
-        this.leaveModel.leaveUser = `${item.cls.name} - ${item.name}`
-        this.hideSCcs()
-      },
-      // 显示请假类型 picker
-      showLeaveTypePicker() {
-        this.$refs.leaveTypePicker.show()
-      },
       // 选择请假开始时间
       showDateStartPicker() {
         this.$refs.dateStartPicker.show()
@@ -175,11 +139,6 @@
         this.validity = result.validity
         this.valid = result.valid
         // console.log('validity', result.validity, result.valid, result.dirty, result.firstInvalidFieldIndex)
-      },
-      // 选择请假类型之后
-      selectLeaveType(selectedVal, selectedIndex, selectedText) {
-        this.postData.leaveTypeId = selectedVal[0]
-        this.leaveModel.leaveType = selectedText[0]
       },
       // 选择开始时间之后
       dateStartSelectHandler(date, selectedVal, selectedText) {
@@ -207,15 +166,15 @@
             this.$emit('applySuccessful')
             this.$router.back()
           } else {
-            openToast(this, '设置失败，请检查填写的参数', 'error')
+            openToast(this, '申请失败，请检查填写的参数', 'error')
           }
         })
       },
       _initData() {
         let arr = []
         arr.push({
-          flow_id: 1,
-          user_id: this.postData.leaveUserId,
+          flow_id: 2,
+          user_id: 0,
           form: {
             leave_type_id: this.postData.leaveTypeId,
             begin_time: (this.postData.leaveStartTime + '').substr(0, 10),
@@ -228,7 +187,6 @@
       }
     },
     components: {
-      SCcs,
       MHeader
     }
   }
@@ -237,7 +195,7 @@
 <style lang="stylus" scoped>
   @import "~common/stylus/variable"
 
-  .set-student-leave
+  .leave
     z-index: 30
     .container
       width: 100%

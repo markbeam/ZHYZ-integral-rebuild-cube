@@ -9,13 +9,13 @@
       <ul class="list-content">
         <!-- 详细 -->
         <li @click="selectItem(item, $event)" 
-          :key="item.begin_time"
+          :key="item.id"
           v-for="item in applications"
           class="list-item">
           <div class="left">
-            <p class="title">{{ item.leave_type.name }}</p>
+            <p class="title">{{ item.form_content.level_type || '留宿' }}</p>
             <p class="create-time time">申请时间：{{ item.create_time | formatDate }}</p>
-            <p class="name">{{ item.user.name }} <span v-if="item.user.cls">{{ item.user.cls.name }}</span></p>
+            <p class="name" v-if="item.sponsor_user">{{ item.sponsor_user.name }} <!--<span v-if="item.user.cls">{{ item.user.cls.name }}</span>--></p>
             <p class="time">开始时间：{{ item.begin_time | formatDate }}</p>
             <p class="time">结束时间：{{ item.end_time | formatDate }}</p>
           </div>
@@ -25,7 +25,7 @@
               v-if="item.status !== 0"
               :class="{'allow': item.status === 1, 'reject': item.status === 2}"
               >{{ item.status === 1 ? '同意' : '拒绝' }}</p>
-            <!-- 否则就显示进度（老师审核 → 部长 → 管理员） -->
+            <!-- 否则就显示进度（老师审核 → 部长 → 用户） -->
             <p class="is-pass" 
               v-if="item.status === 0"
               :class="{'allow': approvalStatus(item).indexOf('班主任审核通过') !== -1, 
@@ -59,13 +59,13 @@
 
   export default {
     props: {
-      selectedType: { // 显示的类别，ture -> 老师 / 管理员，false -> 学生
+      selectedType: { // 显示的类别，ture -> 老师 / 用户，false -> 学生
         type: Boolean,
         default: true
       },
       showType: { // 显示 加减分 类型
-        Type: String,
-        default: 'wait'
+        Type: Number,
+        default: 0
       }
     },
     data() {
@@ -116,7 +116,7 @@
       },
       _getApplicationList() {
         if(this.selectedType) {
-          getProcessApplicationList(this.selectedType, this.pageIndex).then((res) => {
+          getProcessApplicationList(this.showType, this.pageIndex).then((res) => {
             // 如果没数据
             if(this.isContinue) {
               if(res.page.total === 0) {
@@ -150,8 +150,8 @@
             }
           })
         } else {
-          let filter = ''
-          studentGetFinalProcessApplyList(filter, this.pageIndex).then((res) => {
+          let status = 0
+          studentGetFinalProcessApplyList(status, this.pageIndex).then((res) => {
             // 如果没数据
             if(this.isContinue) {
               if(res.page.total === 0) {

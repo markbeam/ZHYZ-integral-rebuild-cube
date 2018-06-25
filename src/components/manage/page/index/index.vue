@@ -15,9 +15,9 @@
             auto-play
             :interval="3000"></cube-slide>
         </div>
-        <!-- 功能按钮 管理员 & 教师 -->
+        <!-- 功能按钮 用户 & 教师 -->
         <div class="btn-container"
-          v-if="personalInfo.user_type === '教师' || personalInfo.user_type === '管理员'">
+          v-if="personalInfo.user_type === '教师' || personalInfo.user_type === '用户'">
           <ul class="btn-list">
             <li class="item">
               <router-link tag="div" 
@@ -52,7 +52,7 @@
                 :to="{name: 'application'}">
                 <!-- icon 图片 -->
                 <div class="icon ic-apply"></div>
-                <p class="text">查看申请</p>
+                <p class="text">申请</p>
               </router-link>
             </li>
           </ul>

@@ -46,7 +46,7 @@
                 <i class="zhyz-class"></i>
                 班级
               </p>
-              <p class="text">{{ personalInfo.cls.name }}</p>
+              <p class="text" v-if="personalInfo.cls">{{ personalInfo.cls.name }}</p>
             </div>
           </li>
           <li class="item">
@@ -144,9 +144,9 @@
       */
       onConfirm() {
         this.setToken('')
+        this.setPersonalInfo({})
         saveInfo(TOKEN_KEY, '')
         this.$router.push('/login')
-        location.reload()
       },
       // 修改密码成功后
       changePasswordSuccessed() {
@@ -158,7 +158,8 @@
         })
       },
       ...mapMutations({
-        setToken: 'SET_TOKEN'
+        setToken: 'SET_TOKEN',
+        setPersonalInfo: 'SET_CURRENT_PERSONAL_ACCOUNT_INFO'
       })
     },
     computed: {

@@ -16,9 +16,9 @@
             <li class="item" 
               v-for="item in leaveList">
               <div class="left">
-                <h2 class="title">{{ `${item.user.name}的${item.leave_type.name}` }}</h2>
+                <h2 class="title">{{ `${item.user.name}的${item.level_type.name}` }}</h2>
                 <p class="leave-type">班级：{{ item.user.cls.name }}</p>
-                <p class="leave-type">请假类型：{{ item.leave_type.name }}</p>
+                <p class="leave-type">请假类型：{{ item.level_type.name }}</p>
                 <p class="begin-time">开始时间：{{ item.begin_time | formatDate }}</p>
                 <p class="end-time">结束时间：{{ item.end_time | formatDate }}</p>
               </div>

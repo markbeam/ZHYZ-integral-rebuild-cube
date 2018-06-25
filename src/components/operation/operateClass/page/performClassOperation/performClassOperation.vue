@@ -201,7 +201,9 @@
             if(res.code === LOGIN_ERR) {
               loginFailure()
             }
-            data = res
+            if(res.code === ERR_OK) {
+              data = res.data
+            }
           })
         } else {
           // 选择完项目后
@@ -209,8 +211,10 @@
             if(res.code === LOGIN_ERR) {
               loginFailure()
             }
-            data = res
-            this.tmpData = res
+            if(res.code === ERR_OK) {
+              data = res.data
+              this.tmpData = res.data
+            }
           })
         }
         // refill panel(index + 1) data
@@ -261,7 +265,9 @@
           if(res.code === LOGIN_ERR) {
             loginFailure()
           }
-          this.setPersonalInfo(res)
+          if(res.code === ERR_OK) {
+            this.setPersonalInfo(res.data)
+          }
         })
       },
       // 操作班级 api

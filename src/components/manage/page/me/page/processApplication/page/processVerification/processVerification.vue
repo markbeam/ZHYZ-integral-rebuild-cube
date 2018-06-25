@@ -17,7 +17,7 @@
                 <i class="zhyz-id-card"></i>
                 姓名
               </p>
-              <p class="text" v-if="verificationData.user">{{ verificationData.user.name }}</p>
+              <p class="text" v-if="verificationData.sponsor_user">{{ verificationData.sponsor_user.name }}</p>
             </div>
           </li>
           <!-- 申请者班级 -->
@@ -27,7 +27,7 @@
                 <i class="zhyz-class"></i>
                 班级
               </p>
-              <p class="text" v-if="verificationData.user.cls">{{ verificationData.user.cls.name }}</p>
+              <!--<p class="text" v-if="verificationData.user.cls">{{ verificationData.user.cls.name }}</p>-->
             </div>
           </li>
           <!-- 申请类型 -->
@@ -37,7 +37,7 @@
                 <i class="zhyz-type"></i>
                 申请类型
               </p>
-              <p class="text" v-if="verificationData.leave_type">{{ verificationData.leave_type.name }}</p>
+              <p class="text">{{ verificationData.form_content.level_type || '留宿' }}</p>
             </div>
           </li>
           <!-- 申请者家长电话 -->
@@ -47,7 +47,7 @@
                 <i class="zhyz-Man"></i>
                 家长电话
               </p>
-              <p class="text" v-if="verificationData.parent_phone">{{ verificationData.parent_phone }}</p>
+              <p class="text" v-if="verificationData.form_content.parent_phone">{{ verificationData.form_content.parent_phone }}</p>
             </div>
           </li>
           <!-- 申请开始时间 -->
@@ -79,9 +79,9 @@
               </p>
               <p maxlength="200" 
                 class="text" 
-                v-if="verificationData.content">
+                v-if="verificationData.form_content.content">
                 <cube-textarea readonly
-                  v-model="verificationData.content">
+                  v-model="verificationData.form_content.content">
                 </cube-textarea>
               </p>
             </div>

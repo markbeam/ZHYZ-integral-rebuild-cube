@@ -1,5 +1,5 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  API_ROOT: '"./api.php?s="'
+  API_ROOT: '"./jifen2/api.php?s="'
 }
