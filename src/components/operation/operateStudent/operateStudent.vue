@@ -117,7 +117,7 @@
       async _getStuByClsId(id) {
         await getStuByClsId(id).then((res) => {
           if(res.code === ERR_OK) {
-            this.stuData = normalizeList(res.data, 'name_initials')
+            this.stuData = normalizeList(res.data, 'pinyin_name')
             this.stuCount = res.data.length
           }
         })
@@ -132,7 +132,7 @@
             }
 
             this.stuCount = res.data.length
-            this.stuData = normalizeList(res.data, 'name_initials')
+            this.stuData = normalizeList(res.data, 'pinyin_name')
           }
         })
       }

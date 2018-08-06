@@ -21,7 +21,7 @@
             <cube-date-picker ref="dateStartPicker" 
               title="选择时间"
               subtitle="年-月-日-时-分"
-              :min="[2018, 5, 1, 0, 0]" 
+              :min="[2018, 9, 1, 0, 0]" 
               :max="[2020, 12, 31, 23, 59]"
               :column-count="5"
               @select="dateStartSelectHandler"></cube-date-picker>
@@ -33,7 +33,7 @@
             <cube-date-picker ref="dateEndPicker" 
               title="选择时间"
               subtitle="年-月-日-时-分"
-              :min="[2018, 5, 1, 0, 0]" 
+              :min="[2018, 9, 1, 0, 0]" 
               :max="[2020, 12, 31, 23, 59]"
               :column-count="5"
               @select="dateEndSelectHandler"></cube-date-picker>
@@ -174,6 +174,7 @@
       _askForLeave() {
         this.requestQuery = this._initData()
         askForLeave(this.requestQuery).then((res) => {
+          // console.log(res)
           if(res.code === ERR_OK) {
             this.$emit('applySuccessful')
             this.$router.back()

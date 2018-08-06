@@ -38,10 +38,14 @@ const RandomSelect = () => import('../components/feature/page/randomSelect/rando
 // 排行榜
 const Rank = () => import('../components/manage/page/index/page/rank/rank').then(m => m.default)
 
-// 我的 > 设置 > 修改密码
+// 我的
+// 设置 > 修改密码
 const Me = () => import('../components/manage/page/me/me').then(m => m.default)
 const Setting = () => import('../components/manage/page/me/page/setting/setting').then(m => m.default)
 const ChangePassword = () => import('../components/manage/page/me/page/setting/page/changePassowrd/changePassowrd').then(m => m.default)
+// 查看本班操作详情
+const ClassOperationDetailList = () => import('../components/manage/page/me/page/classOperationDetailList/classOperationDetailList').then(m => m.default)
+const ClassOperationDetail = () => import('../components/manage/page/me/page/classOperationDetailList/page/classOperationDetail/classOperationDetail').then(m => m.default)
 // 查看自己的学分
 const ViewOwnCredit = () => import('../components/manage/page/me/page/viewOwnCredit/viewOwnCredit').then(m => m.default)
 // 审批请假
@@ -219,6 +223,18 @@ export default new Router({
                       ]
                     }
                   ]
+                }
+              ]
+            },
+            {
+              path: 'classOperationDetailList',
+              name: 'classOperationDetailList',
+              component: ClassOperationDetailList,
+              children: [
+                {
+                  path: 'classOperationDetail',
+                  name: 'classOperationDetail',
+                  component: ClassOperationDetail
                 }
               ]
             },

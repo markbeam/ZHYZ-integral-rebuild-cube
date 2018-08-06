@@ -161,7 +161,27 @@ export function searchStudentByKeyword(keyword) {
   })
 }
 
-// get 分类
+// get 分类 & 项目（同一API）
+export function getAllCateJect(pId, itemType) {
+  let token = loadInfo(TOKEN_KEY)
+  const url = `${process.env.API_ROOT}/score_item_struct`
+
+  return axios.get(url, {
+    headers: {
+      'XX-Token': token
+    },
+    params: {
+      pid: pId,
+      item_type: itemType
+    }
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  }).catch((err) => {
+    console.log(err)
+  })
+}
+
+// get 分类（不同API）
 export function getAllCategory(type, itemType) {
   let token = loadInfo(TOKEN_KEY)
   const url = `${process.env.API_ROOT}/score_category`
@@ -390,6 +410,22 @@ export function getStudentLeaveList(userId) {
     },
     params: {
       user: userId
+    }
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  }).catch((err) => {
+    console.log(err)
+  })
+}
+
+// 获取本班操作详情列表
+export function getClassOperationList() {
+  let token = loadInfo(TOKEN_KEY)
+  const url = `${process.env.API_ROOT}/score_handle/my_cls`
+
+  return axios.get(url, {
+    headers: {
+      'XX-Token': token
     }
   }).then((res) => {
     return Promise.resolve(res.data)

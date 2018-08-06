@@ -364,7 +364,7 @@
           if(res.code === LOGIN_ERR) {
             loginFailure()
           }
-          this.stuData = normalizeList(res.data, 'name_initials')
+          this.stuData = normalizeList(res.data, 'pinyin_name')
           this.isShowLoading = false
         })
       }

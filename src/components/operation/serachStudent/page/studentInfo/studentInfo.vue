@@ -28,17 +28,17 @@
           <!-- 积分 -->
           <ul class="integral-list">
             <li class="item integral">
-              <p class="score">{{ data.scoreTotal - data.scoreExchange }}</p>
+              <p class="score">{{ data.scoreTotal - data.scoreExchange || data.score }}</p>
               <p class="tip">总积分</p>
             </li>
             <!-- 已换购积分 -->
             <li class="item moral-integral">
-              <p class="score">{{ totalCredit }}</p>
+              <p class="score">{{ data.score || totalCredit }}</p>
               <p class="tip">当前学分</p>
             </li>
             <!-- 德育分 -->
             <li class="item moral-integral">
-              <p class="score">{{ data.moralEduSroce }}</p>
+              <p class="score">{{ data.moralEduSroce || 0 }}</p>
               <p class="tip">德育分</p>
             </li>
           </ul>
@@ -56,7 +56,7 @@
                 请假次数
               </p>
               <p class="text">
-                <span class="aooly-count">2</span>
+                <span class="aooly-count">1</span>
                 <i class="zhyz-right"></i>
               </p>
             </div>

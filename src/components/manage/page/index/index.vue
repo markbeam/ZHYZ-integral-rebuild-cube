@@ -137,7 +137,7 @@
                 class="wrap"
                 :to="{name: 'rank'}">
                 <!-- icon 图片 -->
-                <div class="icon ic-search-student"></div>
+                <div class="icon ic-apply"></div>
                 <p class="text">积分排行榜</p>
               </router-link>
             </li>

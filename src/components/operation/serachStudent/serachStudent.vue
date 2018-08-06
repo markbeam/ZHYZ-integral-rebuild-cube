@@ -86,7 +86,7 @@
             this.stuHasInfo = true
           }
           this.stuCount = res.length
-          this.stuData = normalizeList(res, 'name_initials')
+          this.stuData = normalizeList(res, 'pinyin_name')
         })
       }
     },

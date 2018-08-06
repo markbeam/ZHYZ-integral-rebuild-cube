@@ -169,7 +169,7 @@
       },
       // 选择时间
       selectOperationTime() {
-        const time = new Date().valueOf() + 1 * 60 * 60 * 1000
+        const time = new Date().valueOf()
         const timePicker = this.$createTimePicker({
           title: '选择操作时间',
           showNow: true,
@@ -304,18 +304,20 @@
         if(this.isMultiple) {
           this.data.forEach((item) => {
             arr.push({
+              confirm: 1,
               cls_id: item.id,
               score_item_id: this.selectedProjectId,
               use_score_type: this.isUseExtraScore ? 1 : 0,
-              op_time: ((this.operationTime - 60 * 60 * 24 * 1000 * 2) + '').substring(0, 10)
+              op_time: ((this.operationTime - 60 * 60 * 24 * 1000 * 3) + '').substring(0, 10)
             })
           })
         } else {
           arr.push({
+            confirm: 1,
             cls_id: this.classData.id,
             score_item_id: this.selectedProjectId,
             use_score_type: this.isUseExtraScore ? 1 : 0,
-            op_time: ((this.operationTime - 60 * 60 * 24 * 1000 * 2) + '').substring(0, 10)
+            op_time: ((this.operationTime - 60 * 60 * 24 * 1000 * 3) + '').substring(0, 10)
           })
         }
         this.requestQuery = arr

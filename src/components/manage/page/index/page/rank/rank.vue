@@ -1,45 +1,45 @@
 <template>
   <div class="rank c-page">
     <m-header title="积分排行榜"></m-header>
-    <div class="container">
+    <div class="container" v-if="topData">
       <cube-button @click.native="showActionSheet">{{ selectedPicker.pickerActiveText || '请点击选择排行格式' }}</cube-button>
-      <cube-scroll :data="topList"
-        v-show="topList.length">
+      <cube-scroll :data="topData.list"
+        v-if="topData">
         <ul class="top-list">
           <li class="item" 
-            v-for="(item, index) in topList"
+            v-for="(item, index) in topData.list"
             @click="selectItem(item)">
             <p class="ranking-number">{{ index + 1 }}</p>
             <div class="ranking-user-info">
               <div class="avatar"></div>
               <p class="name">{{ item.name }}</p>
-              <p class="class-name">软件15{{ index + 1 }}</p>
+              <p class="class-name">{{ item.cls.name }}</p>
             </div>
             <div class="current-integral">
-              <p class="score">81</p>
+              <p class="score">{{ item.score }}</p>
             </div>
           </li>
         </ul>
       </cube-scroll>
       <!-- 我当前的排名 -->
-      <div class="my-rank">
+      <div class="my-rank" v-if="topData.person">
         <div class="item">
-          <p class="ranking-number">287</p>
+          <p class="ranking-number">{{ topData.person.rank }}</p>
           <div class="ranking-user-info">
             <div class="avatar"></div>
-            <p class="name">梁文阳</p>
-            <p class="class-name">软件151</p>
+            <p class="name">{{ topData.person.name }}</p>
+            <p class="class-name">{{ topData.person.cls_name }}</p>
           </div>
           <div class="current-integral">
-            <p class="score">20</p>
+            <p class="score">{{ topData.person.score }}</p>
           </div>
         </div>
       </div>
-      <!-- Loading box -->
-      <div class="loading-container" 
-        v-show="!topList.length">
-        <loading></loading>
-      </div>
+    </div>
+    <!-- Loading box -->
+    <div class="loading-container" 
+      v-show="!topData">
+      <loading></loading>
     </div>
   </div>
 </template>
@@ -47,75 +47,66 @@
 <script>
   import MHeader from 'base/m-header/m-header'
   import Loading from 'base/loading/loading'
+  import { getRank } from 'api/rank'
+  import { ERR_OK } from 'api/config'
 
   export default {
     data() {
       return {
-        topList: [
-          {
-            name: '吴家恒',
-            id: 1
-          },
-          {
-            name: '陈星龙',
-            id: 2
-          },
-          {
-            name: '温竣皓',
-            id: 3
-          },
-          {
-            name: '何子浩',
-            id: 4
-          },
-          {
-            name: '雷阳',
-            id: 5
-          }
-        ],
+        topData: null,
         selectedPicker: {
-          pickerActiveIndex: 0,
+          pickerActiveIndex: 4,
           pickerActiveText: '',
           pickerActiveValue: 0
         }
       }
     },
+    created() {
+      this._getRank()
+    },
     methods: {
       selectItem(item) {
-        console.log(item)
-        // this.$router.push({
-        //   name: 'studentInfo',
-        //   params: {
-        //     data: item
-        //   }
-        // })
+        this.$router.push({
+          name: 'studentInfo',
+          params: {
+            data: item
+          }
+        })
       },
       showActionSheet() {
         this.$createActionSheet({
-          title: '请选择',
+          title: '请选择（分数相同的话按姓名字母排）',
           active: this.selectedPicker.pickerActiveIndex,
           data: [
             {
-              content: '全校排名',
+              content: '全校',
               value: 1
             },
             {
-              content: '本校排名',
+              content: '本校区',
               value: 2
             },
             {
-              content: '本专业部排名',
+              content: '本专业部',
               value: 3
             },
             {
-              content: '本班排名',
+              content: '本届',
               value: 4
+            },
+            {
+              content: '本班级',
+              value: 5
             }
           ],
           onSelect: (item, index) => {
             this.selectedPicker.pickerActiveIndex = index
             this.selectedPicker.pickerActiveText = item.content
             this.selectedPicker.pickerActiveValue = item.value
+            
+            // update rank data
+            this._getRank()
+            
             this.$createToast({
               txt: `选择 ${item.content}`,
               type: 'correct',
@@ -123,6 +114,15 @@
             }).show()
           }
         }).show()
+      },
+      _getRank() {
+        this.topData = null
+        getRank(this.selectedPicker.pickerActiveText).then((res) => {
+          if(res.code === ERR_OK) {
+            this.topData = res.data
+            console.log(this.topData)
+          }
+        })
       }
     },
     components: {
@@ -193,9 +193,9 @@
             font-size: 0
             .name, .class-name
               display: inline-block
-              font-size: $font-size-large
             .name
               width: 75px
+              font-size: $font-size-large
             .class-name
               margin-left: 8px
               font-size: $font-size-small
@@ -205,6 +205,7 @@
             text-align: center
       .top-list
         margin-top: 5px
+        padding-bottom: 35px
         width: 100%
       .my-rank
         position: fixed

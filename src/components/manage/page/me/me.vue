@@ -105,23 +105,11 @@
               </div>
             </li>
             <!-- 查看本班操作情况 -->
-            <router-link tag="li" :to="{name: 'me'}" class="item">
+            <router-link tag="li" :to="{name: 'classOperationDetailList'}" class="item">
               <div class="wrap">
                 <p class="title">
                   <i class="zhyz-neirongyingxiao"></i>
                   查看本班操作情况
-                </p>
-                <p class="text">
-                  <i class="zhyz-right"></i>
-                </p>
-              </div>
-            </router-link>
-            <!-- 查看本班考勤情况 -->
-            <router-link tag="li" :to="{name: 'me'}" class="item">
-              <div class="wrap">
-                <p class="title">
-                  <i class="zhyz-neirongyingxiao"></i>
-                  查看本班考勤情况
                 </p>
                 <p class="text">
                   <i class="zhyz-right"></i>
@@ -184,7 +172,7 @@
               </div>
             </li>
             <!-- 查看本班操作情况 -->
-            <router-link tag="li" :to="{name: 'me'}" class="item">
+            <router-link tag="li" :to="{name: 'classOperationDetailList'}" class="item">
               <div class="wrap">
                 <p class="title">
                   <i class="zhyz-neirongyingxiao"></i>
