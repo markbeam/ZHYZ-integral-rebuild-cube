@@ -139,11 +139,11 @@
             <!-- 基础积分 -->
             <li class="bar-item">
               <p class="title">总积分</p>
-              <p class="score-text">{{ personalInfo.stu_total_score }}</p>
+              <p class="score-text">{{ personalInfo.score_total }}</p>
             </li>
             <li class="bar-item">
               <p class="title">已换购积分</p>
-              <p class="score-text">{{ personalInfo.stu_exchange_score }}</p>
+              <p class="score-text">{{ personalInfo.score_exchange }}</p>
             </li>
             <li class="bar-item">
               <p class="title">目前积分</p>
@@ -151,7 +151,7 @@
             </li>
             <li class="bar-item">
               <p class="title">德育分</p>
-              <p class="score-text">{{ personalInfo.stu_moral_edu_score }}</p>
+              <p class="score-text">{{ personalInfo.moral_edu_score }}</p>
             </li>
           </ul>
         </div>
@@ -262,7 +262,7 @@
     computed: {
       // 学生当前的积分，总分 - 以换购的积分
       currentScore() {
-        return this.personalInfo.stu_total_score - this.personalInfo.stu_moral_edu_score
+        return this.personalInfo.score_total - this.personalInfo.moral_edu_score
       },
       ...mapGetters([
         'personalInfo'
