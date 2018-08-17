@@ -9,13 +9,16 @@
         ref="scroll"
         style="padding-bottom: 120px"
         :data="creditList">
+        <h2 style="font-size: 30px;">该功能正在维修中...</h2>
         <ul class="view-list-group-multiple" 
+          :key="item.id"
           v-for="(item, index) in creditList"
           v-if="index === selectedPicker.pickerActiveIndex">
           <h2 class="group-title">{{ item.term }}</h2>
           <h3 class="group-subtitle">当前总学分（全部）：{{ totalCredit }}</h3>
           <!-- 查看本班十项常规 -->
-          <li class="item" v-for="subData in item.data">
+          <li class="item" :key="subData.id"
+            v-for="subData in item.data">
             <div class="wrap">
               <p class="title">
                 <i class="zhyz-number1"></i>

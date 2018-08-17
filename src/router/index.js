@@ -11,10 +11,10 @@ const Index = () => import('../components/manage/page/index/index').then(m => m.
 const OperateStudent = () => import('../components/operation/operateStudent/operateStudent').then(m => m.default)
 const PerformOperation = () => import('../components/operation/operateStudent/page/performOperation/performOperation').then(m => m.default)
 // 搜索学生 > 被选择的学生信息页面 > 查看该学生的操作详情
-const SearchStudent = () => import('../components/operation/serachStudent/serachStudent').then(m => m.default)
-const StudentInfo = () => import('../components/operation/serachStudent/page/studentInfo/studentInfo').then(m => m.default)
-const StudentOperationDetailList = () => import('../components/operation/serachStudent/page/studentInfo/page/studentOperationDetailList/studentOperationDetailList').then(m => m.default)
-const StudentOperationDetail = () => import('../components/operation/serachStudent/page/studentInfo/page/studentOperationDetailList/page/studentOperationDetail/studentOperationDetail').then(m => m.default)
+const SearchStudent = () => import('../components/operation/searchStudent/searchStudent').then(m => m.default)
+const StudentInfo = () => import('../components/operation/searchStudent/page/studentInfo/studentInfo').then(m => m.default)
+const StudentOperationDetailList = () => import('../components/operation/searchStudent/page/studentInfo/page/studentOperationDetailList/studentOperationDetailList').then(m => m.default)
+const StudentOperationDetail = () => import('../components/operation/searchStudent/page/studentInfo/page/studentOperationDetailList/page/studentOperationDetail/studentOperationDetail').then(m => m.default)
 // 操作班级积分
 const OperateClass = () => import('../components/operation/operateClass/operateClass').then(m => m.default)
 const PerformClassOperation = () => import('../components/operation/operateClass/page/performClassOperation/performClassOperation').then(m => m.default)

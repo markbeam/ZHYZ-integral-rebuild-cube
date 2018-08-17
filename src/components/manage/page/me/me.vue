@@ -34,7 +34,10 @@
             <li class="bar-item">
               <p class="title">角色</p>
               <p class="score-text" v-show="!personalInfo.roles[0]">超级用户</p>
-              <p class="score-text" v-show="personalInfo.roles[0]" v-for="item in personalInfo.roles">{{ item.name }}</p>
+              <p class="score-text" 
+                v-show="personalInfo.roles[0]"
+                :key="item.id"
+                v-for="item in personalInfo.roles">{{ item.name }}</p>
             </li>
           </ul>
         </div>
@@ -164,7 +167,7 @@
               <div class="wrap">
                 <p class="title">
                   <i class="zhyz-bianmaguize"></i>
-                  查看班级十项常规
+                  查看十项常规
                 </p>
                 <p class="text">
                   <i class="zhyz-right"></i>

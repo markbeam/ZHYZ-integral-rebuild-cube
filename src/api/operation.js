@@ -201,6 +201,26 @@ export function getAllCategory(type, itemType) {
   })
 }
 
+// get 分类（新版）
+export function getAllCategoryNew(type, itemType = 'person') {
+  let token = loadInfo(TOKEN_KEY)
+  const url = `${process.env.API_ROOT}/kp/score_category`
+
+  return axios.get(url, {
+    headers: {
+      'XX-Token': token
+    },
+    params: {
+      type: type,
+      item_type: itemType
+    }
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  }).catch((err) => {
+    console.log(err)
+  })
+}
+
 // 根据分类 id get 项目
 export function getProjectByCategoryId(id, itemType) {
   let token = loadInfo(TOKEN_KEY)
@@ -213,6 +233,27 @@ export function getProjectByCategoryId(id, itemType) {
     params: {
       // itemType 为过滤 操作班级还是个人分的字段 0 or 1
       item_type: itemType
+    }
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  }).catch((err) => {
+    console.log(err)
+  })
+}
+
+// 根据分类 id get 项目
+export function getProjectByCategoryIdNew(itemType, cId) {
+  let token = loadInfo(TOKEN_KEY)
+  const url = `${process.env.API_ROOT}/kp/score_item`
+
+  return axios.get(url, {
+    headers: {
+      'XX-Token': token
+    },
+    params: {
+      // itemType 为过滤 操作班级还是个人分的字段 class or person
+      item_type: itemType,
+      cid: cId
     }
   }).then((res) => {
     return Promise.resolve(res.data)

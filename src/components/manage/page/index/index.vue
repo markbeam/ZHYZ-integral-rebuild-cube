@@ -17,7 +17,11 @@
         </div>
         <!-- 功能按钮 用户 & 教师 -->
         <div class="btn-container"
-          v-if="personalInfo.user_type === '教师' || personalInfo.user_type === '用户'">
+          v-if="personalInfo.user_type === '教师' ||
+            personalInfo.user_type === '用户' ||
+            personalInfo.user_type === '学生处' ||
+            personalInfo.user_type === '学生会' ||
+            personalInfo.user_type === '管理员'">
           <ul class="btn-list">
             <li class="item">
               <router-link tag="div" 
@@ -59,7 +63,10 @@
           <!-- 2 -->
           <ul class="btn-list">
             <!-- 操作班级积分 -->
-            <li class="item">
+            <li class="item" v-if="personalInfo.user_type === '用户' ||
+              personalInfo.user_type === '管理员' ||
+              personalInfo.user_type === '学生处' ||
+              personalInfo.user_type === '学生会'">
               <router-link tag="div" 
                 class="wrap"
                 :to="{name: 'operateClass'}">

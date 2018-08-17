@@ -49,7 +49,8 @@
         <!-- 多选部分 -->
         <ul class="view-list-group" v-else>
           <h2 class="group-title">选择的学生列表</h2>
-          <li class="item" v-for="(item, index) in data">
+          <li class="item" v-for="(item, index) in data"
+            :key="item.id">
             <div class="wrap">
               <p class="title">
                 <i class="zhyz-id-card"></i>
@@ -143,11 +144,11 @@
   import { openToast, loginFailure } from 'common/js/util'
   import { ERR_OK, CONFIRM_, LOGIN_ERR } from 'api/config'
   import { getPersonalInfo } from 'api/index'
-  import { getStudentInfoById, operateStudentScore, getAllCategory, getProjectByCategoryId } from 'api/operation'
+  import { getStudentInfoById, operateStudentScore, getAllCategoryNew, getProjectByCategoryIdNew } from 'api/operation'
   import { mapMutations, mapGetters } from 'vuex'
 
   // 操作学生积分
-  const OPERATION_TYPE = 0
+  const OPERATION_TYPE = 'person'
 
   export default {
     props: {
@@ -229,9 +230,10 @@
       async changeHandler(index, item, selectedVal, selectedIndex, selectedText) {
         // fake request
         let data
+        let pmType = item.id === 1 ? 'plus' : 'minus' // 选择了加分项还是减分项
         if(index === 0) {
           // 选择完加减分后
-          await getAllCategory(item.id, OPERATION_TYPE).then((res) => {
+          await getAllCategoryNew(pmType, OPERATION_TYPE).then((res) => {
             if(res.code === LOGIN_ERR) {
               loginFailure()
             }
@@ -241,7 +243,7 @@
           })
         } else {
           // 选择完项目后
-          await getProjectByCategoryId(item.id, OPERATION_TYPE).then((res) => {
+          await getProjectByCategoryIdNew(OPERATION_TYPE, item.value).then((res) => {
             if(res.code === LOGIN_ERR) {
               loginFailure()
             }

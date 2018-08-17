@@ -80,13 +80,13 @@
       },
       async _searchStudentByKeyword() {
         await searchStudentByKeyword(this.keyword).then((res) => {
-          if(!res.length) {
+          if(!res.data.length) {
             this.stuHasInfo = false
           } else {
             this.stuHasInfo = true
           }
-          this.stuCount = res.length
-          this.stuData = normalizeList(res, 'pinyin_name')
+          this.stuCount = res.data.length
+          this.stuData = normalizeList(res.data, 'pinyin_name')
         })
       }
     },

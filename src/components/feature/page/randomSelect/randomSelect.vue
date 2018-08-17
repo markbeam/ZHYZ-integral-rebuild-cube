@@ -49,6 +49,7 @@
           <h2 class="title">{{ finalSelectedList.length > 1 ? '“幸运儿们”是：' : '“幸运儿”是：' }}</h2>
           <ul class="final-selected-list">
             <li class="item" 
+              :key="item.id"
               v-for="item in finalSelectedList">{{ item.name }}</li>
           </ul>
         </div>
@@ -67,6 +68,7 @@
   import MHeader from 'base/m-header/m-header'
   import SCcs from 'components/operation/components/s-ccs/s-ccs'
   import { openToast } from 'common/js/util'
+  import { ERR_OK } from 'api/config'
   import { getStuByClsId } from 'api/operation'
 
   export default {
@@ -118,7 +120,9 @@
       },
       _getStuByClsId(clsId) {
         getStuByClsId(clsId).then((res) => {
-          this.studentDataList = res
+          if(res.code === ERR_OK) {
+            this.studentDataList = res.data
+          }
         })
       }
     },
