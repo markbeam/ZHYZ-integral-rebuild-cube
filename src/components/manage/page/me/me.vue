@@ -84,11 +84,11 @@
             </li>
             <li class="bar-item">
               <p class="title">基础积分</p>
-              <p class="score-text">{{ personalInfo.tea_basic_score }}</p>
+              <p class="score-text">{{ personalInfo.score_basic }}</p>
             </li>
             <li class="bar-item">
               <p class="title">拓展积分</p>
-              <p class="score-text">{{ personalInfo.tea_extra_score }}</p>
+              <p class="score-text">{{ personalInfo.score_extend }}</p>
             </li>
           </ul>
         </div>
@@ -100,7 +100,7 @@
               <div class="wrap">
                 <p class="title">
                   <i class="zhyz-bianmaguize"></i>
-                  查看本班十项常规
+                  查看十项常规
                 </p>
                 <p class="text">
                   <i class="zhyz-right"></i>
@@ -204,6 +204,18 @@
                 <p class="title">
                   <i class="zhyz-number"></i>
                   查看我的学分
+                </p>
+                <p class="text">
+                  <i class="zhyz-right"></i>
+                </p>
+              </div>
+            </router-link>
+            <!-- 常见问题解答 -->
+            <router-link tag="li" :to="{name: 'FAQ'}" class="item">
+              <div class="wrap">
+                <p class="title">
+                  <i class="zhyz-kuozhan"></i>
+                  常见问题解答
                 </p>
                 <p class="text">
                   <i class="zhyz-right"></i>

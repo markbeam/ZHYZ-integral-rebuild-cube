@@ -33,3 +33,22 @@ export function getStudentCreditById(stuNumber) {
     console.log(err)
   })
 }
+
+// 常见问题
+export function getFAQ(category) {
+  let token = loadInfo(TOKEN_KEY)
+  const url = `${process.env.API_ROOT}/question`
+  
+  return axios.get(url, {
+    headers: {
+      'XX-Token': token
+    },
+    params: {
+      category: category
+    }
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  }).catch((err) => {
+    console.log(err)
+  })
+}

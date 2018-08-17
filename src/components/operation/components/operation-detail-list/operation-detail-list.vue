@@ -38,7 +38,7 @@
         </cube-swipe>
         <!-- 数据列表 -->
         <ul class="list-content"
-          v-if="!isWithdraw || personalInfo.user_type === '学生'">
+          v-if="!isWithdraw && personalInfo.user_type === '学生'">
           <!-- 学生 -->
           <li @click="selectItem(item)" 
             :key="item.id"

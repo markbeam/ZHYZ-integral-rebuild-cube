@@ -110,7 +110,7 @@
       color: $color-exit !important
     .cube-index-list-content, .cube-scroll-content
       padding-bottom: 30px
-    .rank
+    .rank, .faq
       .cube-index-list-content, .cube-scroll-content
         padding-bottom: 120px
     .view-own-credit

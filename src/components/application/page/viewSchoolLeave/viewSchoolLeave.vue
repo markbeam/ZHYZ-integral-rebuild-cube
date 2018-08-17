@@ -51,6 +51,7 @@
   import NoResult from 'base/no-result/no-result'
   import TimeBar from 'components/manage/components/time-bar/time-bar'
   import { formatDate } from 'common/js/date'
+  import { ERR_OK } from 'api/config'
   import { viewSchoolLeave } from 'api/application'
 
   export default {
@@ -113,12 +114,14 @@
         this.hasInfo = true
         this.leaveList = []
         viewSchoolLeave(this.campusData.id, date).then((res) => {
-          if(!res.length) {
+          if(!res.data.length) {
             this.hasInfo = false
             return
           }
           
-          this.leaveList = res
+          if(res.code === ERR_OK) {
+            this.leaveList = res.data
+          }
         })
       }
     },

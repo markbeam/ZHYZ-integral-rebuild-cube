@@ -7,6 +7,7 @@
         v-if="topData">
         <ul class="top-list">
           <li class="item" 
+            :key="item.id"
             v-for="(item, index) in topData.list"
             @click="selectItem(item)">
             <p class="ranking-number">{{ index + 1 }}</p>
@@ -47,8 +48,8 @@
 <script>
   import MHeader from 'base/m-header/m-header'
   import Loading from 'base/loading/loading'
-  import { getRank } from 'api/rank'
   import { ERR_OK } from 'api/config'
+  import { getRank } from 'api/rank'
 
   export default {
     data() {
@@ -120,7 +121,6 @@
         getRank(this.selectedPicker.pickerActiveText).then((res) => {
           if(res.code === ERR_OK) {
             this.topData = res.data
-            console.log(this.topData)
           }
         })
       }

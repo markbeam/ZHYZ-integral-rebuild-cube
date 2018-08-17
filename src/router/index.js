@@ -53,6 +53,8 @@ const ProcessApplication = () => import('../components/manage/page/me/page/proce
 const ProcessVerification = () => import('../components/manage/page/me/page/processApplication/page/processVerification/processVerification').then(m => m.default)
 // 我的申请（= 老师 / 用户 -> 审批请假）
 const MyApplication = () => import('../components/manage/page/me/page/myApplication/myApplication').then(m => m.default)
+// 常见问题指引
+const FAQ = () => import('../components/manage/page/me/page/FAQ/FAQ').then(m => m.default)
 
 export default new Router({
   routes: [
@@ -266,6 +268,11 @@ export default new Router({
               path: 'viewOwnCredit', // 查看自己的学分
               name: 'viewOwnCredit',
               component: ViewOwnCredit
+            },
+            {
+              path: 'FAQ',
+              name: 'FAQ',
+              component: FAQ
             }
           ]
         }

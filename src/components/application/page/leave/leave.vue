@@ -174,7 +174,7 @@
       _askForLeave() {
         this.requestQuery = this._initData()
         askForLeave(this.requestQuery).then((res) => {
-          // console.log(res)
+          console.log(res)
           if(res.code === ERR_OK) {
             this.$emit('applySuccessful')
             this.$router.back()
@@ -190,8 +190,8 @@
           user_id: 0,
           form: {
             leave_type_id: this.postData.leaveTypeId,
-            begin_time: (this.postData.leaveStartTime + '').substr(0, 10),
-            end_time: (this.postData.leaveEndTime + '').substr(0, 10),
+            begin_time: parseInt((this.postData.leaveStartTime + '').substr(0, 10)),
+            end_time: parseInt((this.postData.leaveEndTime + '').substr(0, 10)),
             content: this.leaveModel.leaveReason,
             parent_phone: this.leaveModel.parentPhoneNumber
           }
