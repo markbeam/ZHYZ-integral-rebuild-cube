@@ -36,7 +36,7 @@
         </router-link>
         <!-- 设置学生假期 -->
         <router-link tag="li" 
-          v-if="personalInfo.user_type === '用户' || personalInfo.user_type === '教师'"
+          v-if="personalInfo.user_type === '用户' || personalInfo.user_type === '管理员'"
           :to="{name: 'setStudentLeave'}" 
           class="item">
           <div class="wrap">

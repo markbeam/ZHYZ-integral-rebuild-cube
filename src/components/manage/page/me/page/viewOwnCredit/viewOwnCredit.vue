@@ -9,7 +9,6 @@
         ref="scroll"
         style="padding-bottom: 120px"
         :data="creditList">
-        <h2 style="font-size: 30px;">该功能正在维修中...</h2>
         <ul class="view-list-group-multiple" 
           :key="item.id"
           v-for="(item, index) in creditList"

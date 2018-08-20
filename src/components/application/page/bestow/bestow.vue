@@ -58,7 +58,7 @@
         requestQuery: null,
         leaveTypeList: null,
         leaveModel: {
-          roomNumber: '',
+          dormitory: '',
           dateStartTimeValue: '',
           dateEndTimeValue: '',
           parentPhoneNumber: '',
@@ -67,7 +67,7 @@
         fields: [
           {
             type: 'input',
-            modelKey: 'roomNumber',
+            modelKey: 'dormitory',
             label: '宿舍号：',
             rules: {
               required: true
@@ -176,6 +176,7 @@
           flow_id: 2,
           user_id: 0,
           form: {
+            dormitory: this.leaveModel.dormitory,
             leave_type_id: this.postData.leaveTypeId,
             begin_time: (this.postData.leaveStartTime + '').substr(0, 10),
             end_time: (this.postData.leaveEndTime + '').substr(0, 10),
