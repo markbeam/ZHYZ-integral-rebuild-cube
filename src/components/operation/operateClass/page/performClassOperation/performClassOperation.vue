@@ -115,7 +115,7 @@
   import { openToast, loginFailure } from 'common/js/util'
   import { getPersonalInfo } from 'api/index'
   import { ERR_OK, CONFIRM_, LOGIN_ERR } from 'api/config'
-  import { operateClassScore, getAllCategory, getProjectByCategoryId } from 'api/operation'
+  import { operateClassScore, getAllCategoryNew, getProjectByCategoryIdNew } from 'api/operation'
   import { mapMutations, mapGetters } from 'vuex'
 
   // 操作班级积分
@@ -163,6 +163,11 @@
         selectedIndex: []
       }
     },
+    created() {
+      if(!this.classData) {
+        this.$router.back()
+      }
+    },
     methods: {
       perform() {
         this._operateClassScore()
@@ -195,9 +200,11 @@
       async changeHandler(index, item, selectedVal, selectedIndex, selectedText) {
         // fake request
         let data
+        // 选择了加分项还是减分项
+        let pmType = item.id === 1 ? 'plus' : 'minus'
         if(index === 0) {
           // 选择完加减分后
-          await getAllCategory(item.id, OPERATION_TYPE).then((res) => {
+          await getAllCategoryNew(pmType, OPERATION_TYPE).then((res) => {
             if(res.code === LOGIN_ERR) {
               loginFailure()
             }
@@ -207,7 +214,7 @@
           })
         } else {
           // 选择完项目后
-          await getProjectByCategoryId(item.id, OPERATION_TYPE).then((res) => {
+          await getProjectByCategoryIdNew(OPERATION_TYPE, item.value).then((res) => {
             if(res.code === LOGIN_ERR) {
               loginFailure()
             }

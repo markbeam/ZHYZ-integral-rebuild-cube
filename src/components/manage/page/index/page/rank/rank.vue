@@ -3,12 +3,12 @@
     <m-header title="积分排行榜"></m-header>
     <div class="container" v-if="topData">
       <cube-button @click.native="showActionSheet">{{ selectedPicker.pickerActiveText || '请点击选择排行格式' }}</cube-button>
-      <cube-scroll :data="topData.list"
+      <cube-scroll :data="topData"
         v-if="topData">
         <ul class="top-list">
           <li class="item" 
             :key="item.id"
-            v-for="(item, index) in topData.list"
+            v-for="(item, index) in topData"
             @click="selectItem(item)">
             <p class="ranking-number">{{ index + 1 }}</p>
             <div class="ranking-user-info">
@@ -23,16 +23,16 @@
         </ul>
       </cube-scroll>
       <!-- 我当前的排名 -->
-      <div class="my-rank" v-if="topData.person">
+      <div class="my-rank" v-if="personData">
         <div class="item">
-          <p class="ranking-number">{{ topData.person.rank }}</p>
+          <p class="ranking-number">{{ personData.rank }}</p>
           <div class="ranking-user-info">
             <div class="avatar"></div>
-            <p class="name">{{ topData.person.name }}</p>
-            <p class="class-name">{{ topData.person.cls_name }}</p>
+            <p class="name">{{ personData.name }}</p>
+            <p class="class-name" v-if="personData.cls_name">{{ personData.cls_name }}</p>
           </div>
           <div class="current-integral">
-            <p class="score">{{ topData.person.score }}</p>
+            <p class="score">{{ personData.score }}</p>
           </div>
         </div>
       </div>
@@ -55,6 +55,7 @@
     data() {
       return {
         topData: null,
+        personData: null,
         selectedPicker: {
           pickerActiveIndex: 4,
           pickerActiveText: '',
@@ -120,7 +121,8 @@
         this.topData = null
         getRank(this.selectedPicker.pickerActiveText).then((res) => {
           if(res.code === ERR_OK) {
-            this.topData = res.data
+            this.topData = res.data.list[0].list
+            this.personData = res.data.person
           }
         })
       }

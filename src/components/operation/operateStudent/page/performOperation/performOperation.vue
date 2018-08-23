@@ -230,7 +230,8 @@
       async changeHandler(index, item, selectedVal, selectedIndex, selectedText) {
         // fake request
         let data
-        let pmType = item.id === 1 ? 'plus' : 'minus' // 选择了加分项还是减分项
+        // 选择了加分项还是减分项
+        let pmType = item.id === 1 ? 'plus' : 'minus'
         if(index === 0) {
           // 选择完加减分后
           await getAllCategoryNew(pmType, OPERATION_TYPE).then((res) => {
