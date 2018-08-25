@@ -4,7 +4,7 @@
       <i class="icon zhyz-right" @click.prevent.stop="back"></i>
       <span v-if="isShowCloseIcon">
         <div class="split-line"></div>
-        <router-link tag="i" :to="backPage" class="zhyz-delete go-to-home"></router-link>
+        <router-link tag="i" :to="{name: backPage}" class="zhyz-delete go-to-home"></router-link>
       </span>
     </div>
     <h2 class="title">{{ title }}</h2>
@@ -24,7 +24,7 @@
       },
       backPage: {
         type: String,
-        default: '/index'
+        default: 'index'
       }
     },
     methods: {

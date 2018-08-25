@@ -79,7 +79,6 @@
             this.hasInfo = false
             return
           }
-          console.log(res)
           this.mesystemDataList = res
         })
       }

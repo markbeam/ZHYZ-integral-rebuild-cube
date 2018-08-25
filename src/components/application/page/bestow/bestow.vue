@@ -14,8 +14,8 @@
             <cube-date-picker ref="dateStartPicker" 
               title="选择时间"
               subtitle="年-月-日-时-分"
-              :min="[2018, 9, 1, 0, 0]" 
-              :max="[2020, 12, 31, 23, 59]"
+              :min="[2018, 1, 1, 0, 0]" 
+              :max="[2030, 12, 31, 23, 59]"
               :column-count="5"
               @select="dateStartSelectHandler"></cube-date-picker>
           </cube-form-item>
@@ -26,8 +26,8 @@
             <cube-date-picker ref="dateEndPicker" 
               title="选择时间"
               subtitle="年-月-日-时-分"
-              :min="[2018, 9, 1, 0, 0]" 
-              :max="[2020, 12, 31, 23, 59]"
+              :min="[2018, 1, 1, 0, 0]" 
+              :max="[2030, 12, 31, 23, 59]"
               :column-count="5"
               @select="dateEndSelectHandler"></cube-date-picker>
           </cube-form-item>
@@ -165,6 +165,9 @@
           if(res.code === ERR_OK) {
             this.$emit('applySuccessful')
             this.$router.back()
+            setTimeout(() => {
+              this.$router.push({name: 'myApplication'})
+            }, 50)
           } else {
             openToast(this, '申请失败，请检查填写的参数', 'error')
           }

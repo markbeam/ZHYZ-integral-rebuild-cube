@@ -95,7 +95,6 @@
       }
     },
     created() {
-      console.log(this.$route.params.data)
       if(!this.$route.params.data) {
         this.$router.back()
       }

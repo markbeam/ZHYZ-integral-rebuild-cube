@@ -1,6 +1,7 @@
 <template>
   <div class="my-application c-page">
-    <m-header title="我的申请" :is-show-close-icon="false"></m-header>
+    <m-header title="我的申请"
+      :is-show-close-icon="false"></m-header>
     <div class="container">
       <!-- 尚未审批列表 -->
       <div class="wait-process-container">

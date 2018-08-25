@@ -9,7 +9,9 @@
         @pulling-up="onPullingUp">
         <!-- 能撤回 -->
         <cube-swipe class="list-content"
-          v-if="isWithdraw && personalInfo.user_type === '用户' || personalInfo.user_type === '教师'">
+          v-if="isWithdraw && personalInfo.user_type === '用户' ||
+            personalInfo.user_type === '教师' ||
+            personalInfo.user_type === '管理员'">
           <transition-group name="swipe" tag="ul">
             <li v-for="(item, index) in operations"
               @click="selectItem(item)" 
@@ -36,6 +38,31 @@
             </li>
           </transition-group>
         </cube-swipe>
+        <!-- 数据列表 -->
+        <ul class="list-content"
+          v-if="!isWithdraw && personalInfo.user_type === '用户' ||
+            personalInfo.user_type === '教师' ||
+            personalInfo.user_type === '管理员'">
+          <!-- 学生 -->
+          <li @click="selectItem(item)" 
+            :key="item.id"
+            class="list-item" 
+            v-for="item in operations">
+            <div class="wrapper">
+              <div class="left">
+                <p class="title">{{ item.content }}</p>
+                <span class="klass" v-if="item.to_cls">{{ item.to_cls.name }}</span>
+                <span class="name" v-if="item.to_user">{{ item.to_user.name }}</span>
+                <span class="time" v-if="item.create_time">{{ item.create_time | formatDate }}</span>
+              </div>
+              <div class="right">
+                <p class="add-subtrac-score" 
+                :style="{'color': item.score > 0 ? '#12b7f5' : '#f62836'}">{{ padLeftZero(item.score) }}</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+
         <!-- 数据列表 -->
         <ul class="list-content"
           v-if="personalInfo.user_type === '学生'">

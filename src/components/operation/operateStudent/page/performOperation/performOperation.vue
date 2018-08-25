@@ -217,7 +217,6 @@
           onSelect: (selectedTime, selectedText) => {
             this.operationTime = selectedTime
             this.operationTimeText = selectedText
-            console.log(selectedTime)
           }
         })
 

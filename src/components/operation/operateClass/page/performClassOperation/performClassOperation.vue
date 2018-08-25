@@ -56,11 +56,15 @@
                 考评项目
               </p>
               <p class="text">
-                <span class="tip-text" v-show="!selectedProjectId">
+                <span class="tip-text" v-show="!selectedProjectId[0]">
                   请选择
                   <i class="zhyz-right"></i>
                 </span>
-                <span>{{ selectedProjectText }}</span>
+                <div class="project-text">
+                  <p class="projects"
+                    v-for="(item, index) in selectedProjectText"
+                    :key="index">{{ item }}</p>
+                </div>
               </p>
             </div>
           </li>
@@ -71,7 +75,7 @@
                 分值
               </p>
               <p class="text">
-                <span class="tip-text" v-show="!selectedProjectId">
+                <span class="tip-text" v-show="!selectedProjectId[0]">
                   请先选择考评项目
                 </span>
                 <span>{{ selectedProjectScore }}</span>
@@ -119,7 +123,7 @@
   import { mapMutations, mapGetters } from 'vuex'
 
   // 操作班级积分
-  const OPERATION_TYPE = 1 // 0 -> 个人项目，1 -> 班级项目
+  const OPERATION_TYPE = 'class' // 0 -> 个人项目，1 -> 班级项目
 
   export default {
     props: {
@@ -141,9 +145,10 @@
         operationTime: new Date().getTime(),
         operationTimeText: '',
         requestQuery: [],
-        selectedProjectId: '', // 选中的项目 ID
-        selectedProjectText: '', // 选中的项目 Text
+        selectedProjectId: [], // 选中的项目 ID
+        selectedProjectText: [], // 选中的项目 Text
         selectedProjectScore: '', // 选中的项目的分值
+        selectedTempProjectScore: 0, // 选中的项目的分值
         isShowConfirmBox: false, // 是否显示超出分数限制 box
         isUseExtraScore: false, // 是否使用拓展积分
         projectData: [
@@ -228,9 +233,10 @@
         this.$refs.drawer.refill(index + 1, data)
       },
       selectHandler(selectedVal, selectedIndex, selectedText) {
-        this.selectedProjectId = selectedVal[selectedVal.length - 1]
-        this.selectedProjectText = selectedText[selectedText.length - 1]
-        this.selectedProjectScore = this.padLeftSign(this.tmpData[selectedIndex[selectedIndex.length - 1]].cls_score + '')
+        this.selectedProjectId.push(selectedVal[selectedVal.length - 1])
+        this.selectedProjectText.push(selectedText[selectedText.length - 1])
+        this.selectedTempProjectScore += this.tmpData[selectedIndex[selectedIndex.length - 1]].cls_score
+        this.selectedProjectScore = this.padLeftSign(this.selectedTempProjectScore)
       },
       // 超出分数限制
       overScoreConfirm(res) {
@@ -308,23 +314,29 @@
         }
         // 否则把班级加进去
         let arr = []
+        let _optime = ((this.operationTime - 60 * 60 * 24 * 1000 * 3) + '').substring(0, 10)
+        // 如果有多个班级
         if(this.isMultiple) {
-          this.data.forEach((item) => {
-            arr.push({
-              confirm: 1,
-              cls_id: item.id,
-              score_item_id: this.selectedProjectId,
-              use_score_type: this.isUseExtraScore ? 1 : 0,
-              op_time: ((this.operationTime - 60 * 60 * 24 * 1000 * 3) + '').substring(0, 10)
+          this.multipleClassData.forEach((item) => {
+            this.selectedProjectId.forEach((citem) => {
+              arr.push({
+                confirm: 1,
+                cls_id: item.id,
+                score_item_id: citem,
+                use_score_type: this.isUseExtraScore ? 1 : 0,
+                op_time: _optime
+              })
             })
           })
         } else {
-          arr.push({
-            confirm: 1,
-            cls_id: this.classData.id,
-            score_item_id: this.selectedProjectId,
-            use_score_type: this.isUseExtraScore ? 1 : 0,
-            op_time: ((this.operationTime - 60 * 60 * 24 * 1000 * 3) + '').substring(0, 10)
+          this.selectedProjectId.forEach((item) => {
+            arr.push({
+              confirm: 1,
+              cls_id: this.classData.id,
+              score_item_id: item,
+              use_score_type: this.isUseExtraScore ? 1 : 0,
+              op_time: _optime
+            })
           })
         }
         this.requestQuery = arr
@@ -345,9 +357,14 @@
 </script>
 
 <style lang="stylus">
+  @import "~common/stylus/variable"
+
   .perform-operation
     z-index: 30
     .container
       height: 100%
       overflow: hidden
+      .projects
+        display: block
+        color: $color-transparent-black-v 
 </style>

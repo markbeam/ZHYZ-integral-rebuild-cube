@@ -277,7 +277,7 @@
     computed: {
       // 学生当前的积分，总分 - 以换购的积分
       currentScore() {
-        return this.personalInfo.score_total - this.personalInfo.moral_edu_score
+        return this.personalInfo.score_total - this.personalInfo.score_exchange
       },
       ...mapGetters([
         'personalInfo'

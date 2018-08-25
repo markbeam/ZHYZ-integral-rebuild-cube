@@ -2,7 +2,9 @@
   <div class="rank c-page">
     <m-header title="积分排行榜"></m-header>
     <div class="container" v-if="topData">
-      <cube-button @click.native="showActionSheet">{{ selectedPicker.pickerActiveText || '请点击选择排行格式' }}</cube-button>
+      <cube-button @click.native="showActionSheet">
+        {{ selectedPicker.pickerActiveText || '请点击选择排行格式' }}
+      </cube-button>
       <cube-scroll :data="topData"
         v-if="topData">
         <ul class="top-list">
@@ -50,6 +52,7 @@
   import Loading from 'base/loading/loading'
   import { ERR_OK } from 'api/config'
   import { getRank } from 'api/rank'
+  import { mapGetters } from 'vuex'
 
   export default {
     data() {
@@ -65,6 +68,40 @@
     },
     created() {
       this._getRank()
+
+      if(this.personalInfo.user_type === '学生' ||
+          this.personalInfo.user_type === '班主任') {
+        this.ActionSheetData = [
+          {
+            content: '全校',
+            value: 1
+          },
+          {
+            content: '本校区',
+            value: 2
+          },
+          {
+            content: '专业部',
+            value: 3
+          },
+          {
+            content: '本届',
+            value: 4
+          },
+          {
+            content: '本班级',
+            value: 5
+          }
+        ]
+      } else {
+        this.selectedPicker.pickerActiveIndex = 0
+        this.ActionSheetData = [
+          {
+            content: '全校',
+            value: 1
+          }
+        ]
+      }
     },
     methods: {
       selectItem(item) {
@@ -79,28 +116,7 @@
         this.$createActionSheet({
           title: '请选择（分数相同的话按姓名字母排）',
           active: this.selectedPicker.pickerActiveIndex,
-          data: [
-            {
-              content: '全校',
-              value: 1
-            },
-            {
-              content: '本校区',
-              value: 2
-            },
-            {
-              content: '本专业部',
-              value: 3
-            },
-            {
-              content: '本届',
-              value: 4
-            },
-            {
-              content: '本班级',
-              value: 5
-            }
-          ],
+          data: this.ActionSheetData,
           onSelect: (item, index) => {
             this.selectedPicker.pickerActiveIndex = index
             this.selectedPicker.pickerActiveText = item.content
@@ -126,6 +142,11 @@
           }
         })
       }
+    },
+    computed: {
+      ...mapGetters([
+        'personalInfo'
+      ])
     },
     components: {
       MHeader,

@@ -92,7 +92,6 @@
         this.$refs.SCcs.show()
       },
       selectedCampus(item) {
-        console.log(item)
         this.campusData = item
         this.$router.push({
           name: 'viewSchoolLeave'

@@ -2,7 +2,7 @@
   <div class="process-verification c-page">
     <m-header title="审核确认" 
       :is-show-close-icon="true"
-      back-page="/me"></m-header>
+      back-page="me"></m-header>
     <div class="container">
       <cube-scroll 
         ref="scroll"
@@ -27,7 +27,7 @@
                 <i class="zhyz-class"></i>
                 班级
               </p>
-              <!--<p class="text" v-if="verificationData.user.cls">{{ verificationData.user.cls.name }}</p>-->
+              <p class="text" v-if="verificationData.sponsor_user.cls">{{ verificationData.sponsor_user.cls.name }}</p>
             </div>
           </li>
           <!-- 申请类型 -->
