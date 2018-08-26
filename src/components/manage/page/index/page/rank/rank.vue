@@ -70,7 +70,8 @@
       this._getRank()
 
       if(this.personalInfo.user_type === '学生' ||
-          this.personalInfo.user_type === '班主任') {
+          this.personalInfo.roles[0].name === '班主任' ||
+          this.personalInfo.roles[1].name === '班主任') {
         this.ActionSheetData = [
           {
             content: '全校',

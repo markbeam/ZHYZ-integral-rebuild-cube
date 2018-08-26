@@ -28,12 +28,12 @@
           <!-- 积分 -->
           <ul class="integral-list">
             <li class="item integral">
-              <p class="score">{{ data.scoreTotal - data.scoreExchange || data.score }}</p>
+              <p class="score">{{ data.scoreTotal || data.score }}</p>
               <p class="tip">总积分</p>
             </li>
             <!-- 已换购积分 -->
             <li class="item moral-integral">
-              <p class="score">{{ data.score || totalCredit }}</p>
+              <p class="score">{{ totalCredit || 0 }}</p>
               <p class="tip">当前学分</p>
             </li>
             <!-- 德育分 -->

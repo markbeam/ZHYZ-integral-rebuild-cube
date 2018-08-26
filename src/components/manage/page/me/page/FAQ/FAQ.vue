@@ -111,7 +111,7 @@
       height: 100%
       .q-list
         overflow: hidden
-        font-size: $font-size-large-x
+        font-size: $font-size-large
         .item
           &:not(:last-child)
             .wrap
