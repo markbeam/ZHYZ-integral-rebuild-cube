@@ -23,6 +23,7 @@
               subtitle="年-月-日-时-分"
               :min="[2018, 1, 1, 0, 0]" 
               :max="[2030, 12, 31, 23, 59]"
+              :value="new Date()"
               :column-count="5"
               @select="dateStartSelectHandler"></cube-date-picker>
           </cube-form-item>

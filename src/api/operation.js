@@ -18,10 +18,58 @@ export function getAllCampus() {
   })
 }
 
+// get 部门（by校区id）
+export function getDepartmentByCampusId(id) {
+  let token = loadInfo(TOKEN_KEY)
+  const url = `${process.env.API_ROOT}/department/by_campus/${id}`
+
+  return axios.get(url, {
+    headers: {
+      'XX-Token': token
+    }
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  }).catch((err) => {
+    console.log(err)
+  })
+}
+
+// get 班级（by专业部id）
+export function getClassByDepartmenId(id) {
+  let token = loadInfo(TOKEN_KEY)
+  const url = `${process.env.API_ROOT}/cls/by_department/${id}`
+
+  return axios.get(url, {
+    headers: {
+      'XX-Token': token
+    }
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  }).catch((err) => {
+    console.log(err)
+  })
+}
+
 // get 全部班级信息 或 根据校区 id get 班级
 export function getClsListByCampusId(campusId) {
   let token = loadInfo(TOKEN_KEY)
   const url = `${process.env.API_ROOT}/cls/by_campus/${campusId}`
+  
+  return axios.get(url, {
+    headers: {
+      'XX-Token': token
+    }
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  }).catch((err) => {
+    console.log(err)
+  })
+}
+
+// get 年级列表
+export function getGradeList() {
+  let token = loadInfo(TOKEN_KEY)
+  const url = `${process.env.API_ROOT}/grades`
   
   return axios.get(url, {
     headers: {

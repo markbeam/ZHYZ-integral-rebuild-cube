@@ -1,12 +1,12 @@
 <template>
   <div class="student-info c-page">
-    <m-header :title="`${data.name} 信息`"
+    <m-header :title="`${stuData.name} 信息`"
       :is-show-close-icon="true"></m-header>
     <div class="container">
       <!-- 头像 icon -->
       <div class="avatar-container">
         <!-- 头像 女 -->
-        <div class="avatar" v-if="data.sex === '女'">
+        <div class="avatar" v-if="stuData.sex === '女'">
           <div class="icon female"></div>
         </div>
         <!-- 头像 男 -->
@@ -15,11 +15,12 @@
         </div>
         <div class="text">
           <!-- 姓名 -->
-          <p class="name">{{ data.name }}</p>
+          <p class="name">{{ stuData.name }}</p>
           <!-- 班级 -->
-          <span class="class">{{ data.cls.name }}</span>
+          <span class="class" v-if="stuData.cls">{{ stuData.cls.name }}</span>
+          <span class="class" v-else>{{ stuData.cls_name }}</span>
           <!-- 性别 -->
-          <span class="sex">{{ data.sex }}</span>
+          <span class="sex">{{ stuData.sex }}</span>
         </div>
       </div>
       <!-- 积分信息 -->
@@ -28,7 +29,7 @@
           <!-- 积分 -->
           <ul class="integral-list">
             <li class="item integral">
-              <p class="score">{{ data.scoreTotal || data.score }}</p>
+              <p class="score">{{ stuData.scoreTotal || stuData.score }}</p>
               <p class="tip">总积分</p>
             </li>
             <!-- 已换购积分 -->
@@ -38,7 +39,7 @@
             </li>
             <!-- 德育分 -->
             <li class="item moral-integral">
-              <p class="score">{{ data.moralEduSroce || 0 }}</p>
+              <p class="score">{{ stuData.moralEduSroce || 0 }}</p>
               <p class="tip">德育分</p>
             </li>
           </ul>
@@ -49,7 +50,7 @@
         <ul class="view-list-group basic">
           <h2 class="group-title">统计</h2>
           <!-- 查看十项常规 -->
-          <li class="item">
+          <!-- <li class="item">
             <div class="wrap">
               <p class="title">
                 <i class="zhyz-time"></i>
@@ -60,7 +61,7 @@
                 <i class="zhyz-right"></i>
               </p>
             </div>
-          </li>
+          </li> -->
           <!-- 审批请假 -->
           <router-link tag="li" :to="{name: 'studentOperationDetailList'}" class="item">
             <div class="wrap">
@@ -77,7 +78,7 @@
       </div>
     </div>
     <transition name="slide">
-      <router-view :data="data"></router-view>
+      <router-view :data="stuData"></router-view>
     </transition>
   </div>
 </template>
@@ -90,7 +91,7 @@
   export default {
     data() {
       return {
-        data: this.$route.params.data,
+        stuData: null,
         totalCredit: 0
       }
     },
@@ -98,6 +99,14 @@
       if(!this.$route.params.data) {
         this.$router.back()
       }
+      this.stuData = this.$route.params.data
+      this._getStudentCreditById()
+    },
+    activated() {
+      if(!this.$route.params.data) {
+        this.$router.back()
+      }
+      this.stuData = this.$route.params.data
       this._getStudentCreditById()
     },
     methods: {
@@ -111,12 +120,17 @@
         this.totalCredit = tmpTotalCredit
       },
       _getStudentCreditById() {
-        getStudentCreditById(this.data.number).then((res) => {
+        getStudentCreditById(this.stuData.number).then((res) => {
           if(res.code === ERR_OK) {
             this.figureCredit(res.data)
           }
         })
       }
+    },
+    beforeRouteLeave(to, from, next) {
+      // 设置下一个路由的 meta
+      to.meta.keepAlive = true // 让 A(上个页面) 缓存，即不刷新
+      next()
     },
     components: {
       MHeader

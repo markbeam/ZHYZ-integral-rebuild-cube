@@ -45,11 +45,12 @@ export function findIndex(list, newItem) {
 
 // 创建相同的数组时需要的字段可以封装成一个 class
 export class Klass {
-  constructor({id, name, cls, number, sex, scoreTotal, scoreExchange, moralEduSroce}) {
+  constructor({id, name, cls, number, sex, score, scoreTotal, scoreExchange, moralEduSroce}) {
     this.id = id
     this.name = name
     this.sex = sex
     this.cls = cls
+    this.score = score
     this.number = number
     this.scoreTotal = scoreTotal
     this.scoreExchange = scoreExchange
@@ -83,6 +84,7 @@ export function normalizeList(list = [], lizeName, isLizeEng = false) {
       cls: item.cls ? item.cls : {},
       number: item.number ? item.number : '',
       sex: item.sex ? item.sex : '',
+      score: item.score ? item.score : 0,
       scoreTotal: item.score_total ? item.score_total : 0,
       scoreExchange: item.score_exchange ? item.score_exchange : 0,
       moralEduSroce: item.moral_edu_score ? item.moral_edu_score : 0

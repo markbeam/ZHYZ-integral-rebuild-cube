@@ -116,6 +116,7 @@
 
 <script>
   import MHeader from 'base/m-header/m-header'
+  import { formatDate } from 'common/js/date'
   import { openToast, loginFailure } from 'common/js/util'
   import { getPersonalInfo } from 'api/index'
   import { ERR_OK, CONFIRM_, LOGIN_ERR } from 'api/config'
@@ -177,8 +178,8 @@
       perform() {
         this._operateClassScore()
       },
-      // 选择时间
-      selectOperationTime() {
+      // 选择时间 --- time picker
+      /* selectOperationTime() {
         const time = new Date().valueOf()
         const timePicker = this.$createTimePicker({
           title: '选择操作时间',
@@ -198,6 +199,27 @@
 
         timePicker.setTime(time)
         timePicker.show()
+      }, */
+      // 选择时间 --- date picker
+      selectOperationTime() {
+        if(!this.dateTimePicker) {
+          this.dateTimePicker = this.$createDatePicker({
+            title: '选择操作时间',
+            min: new Date(2010, 1, 1, 0, 0),
+            max: new Date(2030, 12, 31, 23, 59),
+            delay: 15,
+            columnCount: 5,
+            value: new Date(),
+            onSelect: this.OperationTimeHandle
+          })
+        }
+
+        this.dateTimePicker.show()
+      },
+      OperationTimeHandle(date, selectedVal, selectedText) {
+        let formatTime = new Date(date + '').valueOf()
+        this.operationTime = formatTime
+        this.operationTimeText = formatDate(new Date(formatTime), 'yyyy-MM-dd hh:mm')
       },
       selectProject() {
         this.$refs.drawer.show()

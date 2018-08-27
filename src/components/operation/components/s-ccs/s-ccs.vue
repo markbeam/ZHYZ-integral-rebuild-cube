@@ -41,7 +41,7 @@
                     <p class="multiple-choice"
                       :class="{'selected': isHasSameId(item) > -1}"
                       v-show="canMultipleChoice && isMultiple"></p>
-                    <p class="name">{{ item.name }}</p>
+                    <p class="name">{{ item.name }} —— {{ item.score }}</p>
                   </div>
                 </cube-index-list-item>
               </cube-index-list-group>

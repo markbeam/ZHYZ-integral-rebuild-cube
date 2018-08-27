@@ -35,6 +35,7 @@
             <li class="item">
               <router-link tag="div" 
                 class="wrap"
+                name="disableAlive"
                 :to="{name: 'searchStudent'}">
                 <!-- icon 图片 -->
                 <div class="icon ic-search-student"></div>
@@ -76,13 +77,15 @@
               </router-link>
             </li>
             <li class="item">
-              <router-link tag="div" 
-                class="wrap"
-                :to="{name: 'rank'}">
-                <!-- icon 图片 -->
-                <div class="icon ic-apply"></div>
-                <p class="text">积分排行榜</p>
-              </router-link>
+              <keep-alive>
+                <router-link tag="div" 
+                  class="wrap"
+                  :to="{name: 'rank'}">
+                  <!-- icon 图片 -->
+                  <div class="icon ic-apply"></div>
+                  <p class="text">积分排行榜</p>
+                </router-link>
+              </keep-alive>
             </li>
             <li class="item">
               <router-link tag="div" 
@@ -102,6 +105,7 @@
             <li class="item">
               <router-link tag="div" 
                 class="wrap"
+                name="disableAlive"
                 :to="{name: 'searchStudent'}">
                 <!-- icon 图片 -->
                 <div class="icon ic-search-student"></div>
@@ -140,20 +144,24 @@
               </router-link>
             </li>
             <li class="item">
-              <router-link tag="div" 
-                class="wrap"
-                :to="{name: 'rank'}">
-                <!-- icon 图片 -->
-                <div class="icon ic-apply"></div>
-                <p class="text">积分排行榜</p>
-              </router-link>
+              <keep-alive>
+                <router-link tag="div" 
+                  class="wrap"
+                  :to="{name: 'rank'}">
+                  <!-- icon 图片 -->
+                  <div class="icon ic-apply"></div>
+                  <p class="text">积分排行榜</p>
+                </router-link>
+              </keep-alive>
             </li>
           </ul>
         </div>
       </cube-scroll>
     </div>
     <transition name="slide">
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </transition>
   </div>
 </template>
