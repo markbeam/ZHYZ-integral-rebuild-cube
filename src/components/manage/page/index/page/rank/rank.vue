@@ -216,6 +216,18 @@
             // update rank data
             this.globalGId = item.value
             this.selectedCampusId = item.value
+            this.departmentData = []
+            this.classData = []
+
+            this.selectedDepartmentPicker = {
+              pickerActiveText: '',
+              pickerActiveValue: 0
+            }
+            this.selectedClassPicker = {
+              pickerActiveText: '',
+              pickerActiveValue: 0
+            }
+            
             this._getDepartmentByCampusId()
             this._getRankAdvanced()
             
@@ -231,6 +243,7 @@
       showDepartmentActionSheet() {
         this.$createActionSheet({
           title: '请选择专业部',
+          active: this.selectedDepartmentPicker.pickerActiveIndex,
           data: this.departmentData,
           onSelect: (item, index) => {
             this.selectedDepartmentPicker.pickerActiveIndex = index
@@ -240,6 +253,13 @@
             // update rank data
             this.globalGId = item.value
             this.selectedDepartmentId = item.value
+            this.classData = []
+
+            this.selectedClassPicker = {
+              pickerActiveText: '',
+              pickerActiveValue: 0
+            }
+            
             this._getClassByDepartmenId()
             this._getRankAdvanced()
             
@@ -255,6 +275,7 @@
       showClassActionSheet() {
         this.$createPicker({
           title: '请选择班级',
+          selectedIndex: [this.selectedClassPicker.pickerActiveIndex],
           data: [this.classData],
           onSelect: (selectedVal, selectedIndex, selectedText) => {
             this.selectedClassPicker.pickerActiveIndex = selectedIndex[0]
@@ -277,6 +298,7 @@
       showGradeActionSheet() {
         this.$createActionSheet({
           title: '请选择年级',
+          active: this.selectedGradePicker.pickerActiveIndex,
           data: this.gradeData,
           onSelect: (item, index) => {
             this.selectedGradePicker.pickerActiveIndex = index

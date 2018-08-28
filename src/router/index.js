@@ -181,7 +181,10 @@ export default new Router({
             {
               path: 'rank',
               name: 'rank',
-              component: Rank
+              component: Rank,
+              meta: {
+                keepAlive: true
+              }
             }
           ]
         },
