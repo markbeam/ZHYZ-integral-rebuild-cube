@@ -22,7 +22,7 @@ export function getRank(groupType) {
 }
 
 // get 排行榜（简约）
-export function getRankAdvanced(gId, grade, limit = 20) {
+export function getRankAdvanced(gId, grade, limit = 100) {
   let token = loadInfo(TOKEN_KEY)
   const url = `${process.env.API_ROOT}/rank1/student_score`
 

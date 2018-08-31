@@ -2,7 +2,7 @@
   <div class="perform-operation c-page">
     <m-header title="执行操作确认" :is-show-close-icon="true"></m-header>
     <div class="container">
-      <cube-scroll 
+      <cube-scroll
         ref="scroll"
         :data="data">
         <!-- 信息部分 -->
@@ -107,7 +107,7 @@
               </p>
             </div>
           </li>
-          <li class="item" 
+          <li class="item"
             @click.prevent="toggleUseExtraScore"
             v-if="personalInfo.user_type === '教师'">
             <div class="wrap">
@@ -165,7 +165,7 @@
     data() {
       return {
         studentData: null,
-        operationTime: new Date().getTime(),
+        operationTime: 0,
         operationTimeText: '',
         requestQuery: [],
         selectedProjectId: '', // 选中的项目 ID
@@ -241,9 +241,8 @@
         this.dateTimePicker.show()
       },
       OperationTimeHandle(date, selectedVal, selectedText) {
-        let formatTime = new Date(date + '').valueOf()
-        this.operationTime = formatTime
-        this.operationTimeText = formatDate(new Date(formatTime), 'yyyy-MM-dd hh:mm')
+        this.operationTime = date.valueOf()
+        this.operationTimeText = formatDate(date, 'yyyy-MM-dd hh:mm')
       },
       selectProject() {
         this.$refs.drawer.show()
@@ -376,7 +375,8 @@
               student_id: item.id,
               score_item_id: this.selectedProjectId,
               use_score_type: this.isUseExtraScore ? 1 : 0,
-              op_time: ((this.operationTime - 60 * 60 * 24 * 1000 * 3) + '').substring(0, 10)
+              // op_time: ((this.operationTime - 60 * 60 * 24 * 1000 * 3) + '').substring(0, 10)
+              op_time: parseInt(this.operationTime / 1000)
             })
           })
         } else {
@@ -385,7 +385,8 @@
             student_id: this.studentData.id,
             score_item_id: this.selectedProjectId,
             use_score_type: this.isUseExtraScore ? 1 : 0,
-            op_time: ((this.operationTime - 60 * 60 * 24 * 1000 * 3) + '').substring(0, 10)
+            // op_time: ((this.operationTime - 60 * 60 * 24 * 1000 * 3) + '').substring(0, 10)
+            op_time: parseInt(this.operationTime / 1000)
           })
         }
         this.requestQuery = arr

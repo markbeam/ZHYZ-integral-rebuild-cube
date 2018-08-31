@@ -92,7 +92,7 @@
         clickAdvCount: 0,
         globalGId: 0,
         globalGrade: 0,
-        globalLimit: 20,
+        globalLimit: 100,
         campusData: [],
         selectedCampusId: 0,
         departmentData: [],
@@ -127,9 +127,7 @@
       this._getRank()
 
       setTimeout(() => {
-        if(this.personalInfo.user_type === '学生' ||
-          this.personalInfo.roles[0].name === '班主任' ||
-          this.personalInfo.roles[1].name === '班主任') {
+        if(this.personalInfo.user_type === '学生') {
           this.ActionSheetData = [
             {
               content: '全校',
@@ -153,7 +151,19 @@
             }
           ]
           this.selectedPicker.pickerActiveIndex = 4
-        } else {
+          } else if(this.personalInfo.roles[0].name === '班主任' || this.personalInfo.roles[1].name === '班主任') {
+            this.selectedPicker.pickerActiveIndex = 1
+              this.ActionSheetData = [
+                {
+                  content: '全校',
+                  value: 1
+                },
+                {
+                  content: '本班级',
+                  value: 5
+                }
+              ]
+          } else {
           this.selectedPicker.pickerActiveIndex = 0
           this.ActionSheetData = [
             {
