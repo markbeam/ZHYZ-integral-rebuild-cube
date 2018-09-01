@@ -15,37 +15,37 @@
         <!-- 账号 -->
         <div class="form-item">
           <i class="icon zhyz-user-login"></i>
-          <input type="text" 
-            class="user-login" 
-            @keydown.enter="runLogin" 
-            v-model="userLogin" 
+          <input type="text"
+            class="user-login"
+            @keydown.enter="runLogin"
+            v-model="userLogin"
             placeholder="账号">
-          <i class="right-icon zhyz-error" 
-            @click="clearLoginNum" 
+          <i class="right-icon zhyz-error"
+            @click="clearLoginNum"
             v-show="userLogin"></i>
         </div>
         <!-- 密码 -->
         <div class="form-item">
           <i class="icon zhyz-user-password"></i>
-          <input type="password" 
-            class="user-password" 
-            @keydown.prevent.enter="runLogin" 
-            v-show="!isShowPwd" 
-            v-model="userPassword" 
-            placeholder="密码" 
+          <input type="password"
+            class="user-password"
+            @keydown.prevent.enter="runLogin"
+            v-show="!isShowPwd"
+            v-model="userPassword"
+            placeholder="密码"
             maxlength="15">
-          <input type="text" 
-            class="user-password" 
-            v-show="isShowPwd" 
-            v-model="userPassword" 
-            placeholder="密码" 
+          <input type="text"
+            class="user-password"
+            v-show="isShowPwd"
+            v-model="userPassword"
+            placeholder="密码"
             maxlength="15">
           <div class="right-icon">
-            <i class="zhyz-error" 
-              @click="clearLoginPwd" 
+            <i class="zhyz-error"
+              @click="clearLoginPwd"
               v-show="userPassword"></i>
-            <i class="zhyz-eye eye" 
-              @click="toggleshowPwd" 
+            <i class="zhyz-eye eye"
+              @click="toggleshowPwd"
               :class="{'active': isShowPwd}"></i>
           </div>
           <div class="save-password" @click="toggleSavePassword">
@@ -55,7 +55,7 @@
         </div>
         <!-- submit btn -->
         <div class="form-item btn">
-          <button type="primary" class="submit-btn" 
+          <button type="primary" class="submit-btn"
             @click.prevent.stop="runLogin">立即登陆</button>
         </div>
       </form>
@@ -64,7 +64,7 @@
       <cube-loading :size="28"></cube-loading>
       请稍等...
     </cube-popup>
-   </div>  
+   </div>
 </template>
 
 <script>

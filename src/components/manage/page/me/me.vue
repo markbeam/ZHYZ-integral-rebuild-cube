@@ -9,7 +9,7 @@
       </router-link>
     </div>
     <!-- 头像 -->
-    <div class="avatar-container" 
+    <div class="avatar-container"
       :style="{'background-color': personalInfo.sex === '女' ? '#ff537d' : '#53a1ff'}">
       <!-- 头部 -->
       <div class="head-top">
@@ -34,7 +34,7 @@
             <li class="bar-item">
               <p class="title">角色</p>
               <p class="score-text" v-show="!personalInfo.roles[0]">超级用户</p>
-              <p class="score-text" 
+              <p class="score-text"
                 v-show="personalInfo.roles[0]"
                 :key="item.id"
                 v-for="item in personalInfo.roles">{{ item.name }}</p>
@@ -242,7 +242,7 @@
   import { ERR_OK } from 'api/config'
   import { getMyTeachCls } from 'api/mesystem'
   import { mapGetters } from 'vuex'
-  
+
   export default {
     data() {
       return {
@@ -387,5 +387,5 @@
             color: $color-light-black
     .feature-container
       margin-top: 15px
-      
+
 </style>

@@ -5,7 +5,7 @@
       <h1 class="text">一职德育积分系统</h1>
     </div>
     <div class="container">
-      <cube-scroll 
+      <cube-scroll
         ref="scroll"
         :data="[personalInfo]">
         <!-- 轮播图 -->
@@ -24,7 +24,7 @@
             personalInfo.user_type === '管理员'">
           <ul class="btn-list">
             <li class="item">
-              <router-link tag="div" 
+              <router-link tag="div"
                 class="wrap"
                 :to="{name: 'operateStudent'}">
                 <!-- icon 图片 -->
@@ -33,7 +33,7 @@
               </router-link>
             </li>
             <li class="item">
-              <router-link tag="div" 
+              <router-link tag="div"
                 class="wrap"
                 name="disableAlive"
                 :to="{name: 'searchStudent'}">
@@ -43,7 +43,7 @@
               </router-link>
             </li>
             <li class="item">
-              <router-link tag="div" 
+              <router-link tag="div"
                 class="wrap"
                 :to="{name: 'personalOperationDetailList'}">
                 <!-- icon 图片 -->
@@ -52,7 +52,7 @@
               </router-link>
             </li>
             <li class="item">
-              <router-link tag="div" 
+              <router-link tag="div"
                 class="wrap"
                 :to="{name: 'application'}">
                 <!-- icon 图片 -->
@@ -68,7 +68,7 @@
               personalInfo.user_type === '管理员' ||
               personalInfo.user_type === '学生处' ||
               personalInfo.user_type === '学生会'">
-              <router-link tag="div" 
+              <router-link tag="div"
                 class="wrap"
                 :to="{name: 'operateClass'}">
                 <!-- icon 图片 -->
@@ -78,7 +78,7 @@
             </li>
             <li class="item">
               <keep-alive>
-                <router-link tag="div" 
+                <router-link tag="div"
                   class="wrap"
                   :to="{name: 'rank'}">
                   <!-- icon 图片 -->
@@ -88,7 +88,7 @@
               </keep-alive>
             </li>
             <li class="item">
-              <router-link tag="div" 
+              <router-link tag="div"
                 class="wrap"
                 :to="{name: 'feature'}">
                 <!-- icon 图片 -->
@@ -103,7 +103,7 @@
           v-if="personalInfo.user_type === '学生'">
           <ul class="btn-list">
             <li class="item">
-              <router-link tag="div" 
+              <router-link tag="div"
                 class="wrap"
                 name="disableAlive"
                 :to="{name: 'searchStudent'}">
@@ -113,7 +113,7 @@
               </router-link>
             </li>
             <li class="item">
-              <router-link tag="div" 
+              <router-link tag="div"
                 class="wrap"
                 :to="{name: 'personalOperationDetailList'}">
                 <!-- icon 图片 -->
@@ -122,7 +122,7 @@
               </router-link>
             </li>
             <li class="item">
-              <router-link tag="div" 
+              <router-link tag="div"
                 class="wrap"
                 :to="{name: 'application'}">
                 <!-- icon 图片 -->
@@ -135,7 +135,7 @@
           <ul class="btn-list">
             <!-- 小功能 -->
             <li class="item">
-              <router-link tag="div" 
+              <router-link tag="div"
                 class="wrap"
                 :to="{name: 'feature'}">
                 <!-- icon 图片 -->
@@ -145,7 +145,7 @@
             </li>
             <li class="item">
               <keep-alive>
-                <router-link tag="div" 
+                <router-link tag="div"
                   class="wrap"
                   :to="{name: 'rank'}">
                   <!-- icon 图片 -->
@@ -268,7 +268,7 @@
               background-size: 45px 45px;
               background-position: center;
               background-repeat: no-repeat;
-              &.ic-operate-student 
+              &.ic-operate-student
                 bg-image('inputNum')
               &.ic-search-student
                 bg-image('search')
