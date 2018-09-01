@@ -186,8 +186,8 @@
       .login-header
         padding: 60px 0 22px
         .zhyz-logo
-          width: 55px
-          height: 55px
+          width: 70px
+          height: 70px
           margin: 0 auto 22px
           .icon
             width: 70px
