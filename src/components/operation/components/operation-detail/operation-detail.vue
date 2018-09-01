@@ -26,23 +26,23 @@
         </div>
       </li>
       <!-- 被操作者 -->
-      <li class="item">
+      <li class="item" v-if="data.to_user">
         <div class="wrap">
           <p class="title">
             <i class="zhyz-icontab04"></i>
             被操作者
           </p>
-          <p class="text" v-if="data.to_user">{{ data.to_user.name }}</p>
+          <p class="text">{{ data.to_user.name }}</p>
         </div>
       </li>
       <!-- 被操作班 -->
-      <li class="item">
+      <li class="item" v-if="data.to_cls">
         <div class="wrap">
           <p class="title">
             <i class="zhyz-banjiketang"></i>
             被操作班
           </p>
-          <p class="text" v-if="data.to_cls">{{ data.to_cls.name }}</p>
+          <p class="text">{{ data.to_cls.name }}</p>
         </div>
       </li>
       <!-- 内容 -->
