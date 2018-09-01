@@ -177,13 +177,13 @@
       return {
         baseList: [{
           url: 'javascript:',
-          image: 'http://www.zhyz.net.cn/service?wdApplication=nr&wdService=nr.getData&path=/xw/data/uploadData/2016/10/18/1476758943632/clip_image001.jpg'
+          image: '/img/1.jpg'
         }, {
           url: 'javascript:',
-          image: 'http://www.zhyz.net.cn/service?wdApplication=nr&wdService=nr.getData&path=/xw/data/uploadData/2016/10/18/1476758852343/clip_image001.jpg'
+          image: '/img/2.jpg'
         }, {
           url: 'javascript:',
-          image: 'http://www.zhyz.net.cn/service?wdApplication=nr&wdService=nr.getData&path=/xw/data/uploadData/2016/10/18/1476759204737/clip_image001.jpg'
+          image: '/img/3.jpg'
         }]
       }
     },
