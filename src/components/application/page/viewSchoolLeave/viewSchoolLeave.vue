@@ -4,8 +4,8 @@
       :is-show-close-icon="true"></m-header>
     <div class="container">
       <!-- 时间选择 -->
-      <time-bar @selectedItem="daySelect" 
-        v-if="weekList" 
+      <time-bar @selectedItem="daySelect"
+        v-if="weekList"
         :time-list="weekList"></time-bar>
       <!-- 选择星期几 -->
       <cube-scroll :data="leaveList"
@@ -13,7 +13,7 @@
         <div>
           <ul class="leave-list"
             v-if="leaveList">
-            <li class="item" 
+            <li class="item"
               :key="item.id"
               v-for="item in leaveList">
               <div class="left">
@@ -25,6 +25,17 @@
               </div>
               <div class="right">
                 <!-- <p class="create-time">{{ (item.create_time | formatDate).substring(11, 16) }}</p> -->
+                <!-- 如果全部审核角色 都审核完毕，就显示通过或拒绝 -->
+                <p class="is-pass"
+                   v-if="item.status !== 0"
+                   :class="{'allow': item.status === 1, 'reject': item.status === 2}"
+                >{{ item.status === 1 ? '同意' : '拒绝' }}</p>
+                <!-- 否则就显示进度（老师审核 → 部长 → 用户） -->
+                <p class="is-pass"
+                   v-if="item.status === 0"
+                   :class="{'allow': approvalStatus(item).indexOf('班主任审核通过') !== -1,
+              'reject': approvalStatus(item) === '申请被拒绝'}"
+                >{{ approvalStatus(item) }}</p>
               </div>
             </li>
           </ul>
@@ -54,6 +65,8 @@
   import { formatDate } from 'common/js/date'
   import { ERR_OK } from 'api/config'
   import { viewSchoolLeave } from 'api/application'
+  import { verifyApplyText } from 'common/js/util'
+  import { mapGetters } from 'vuex'
 
   export default {
     props: {
@@ -95,7 +108,7 @@
       if(!this.campusData.id) {
         this.$router.back()
       }
-      
+
       let da = new Date().getTime()
       for(let i = 0; i < this.weekList.length; i++) {
         Object.assign(this.weekList[i], {
@@ -111,6 +124,9 @@
       daySelect(item) {
         this._viewSchoolLeave(item.date)
       },
+      approvalStatus(approval) {
+        return verifyApplyText(this.personalInfo.id, approval)
+      },
       _viewSchoolLeave(date) {
         this.hasInfo = true
         this.leaveList = []
@@ -119,7 +135,7 @@
             this.hasInfo = false
             return
           }
-          
+
           if(res.code === ERR_OK) {
             this.leaveList = res.data
           }
@@ -134,6 +150,11 @@
 
         return formatDate(date, 'yyyy-MM-dd hh:mm')
       }
+    },
+    computed: {
+      ...mapGetters([
+        'personalInfo'
+      ])
     },
     components: {
       TimeBar,
@@ -174,6 +195,8 @@
               transform-origin: 0 0
               transform: scaleY(0.5)
           .left
+            flex: 0 0 80%
+            width: 80%
             font-size: 14px
             color: #999
             p
@@ -183,7 +206,19 @@
               font-size: 18px
               color: #222
           .right
+            flex: 0 0 20%
+            width: 20%
+            transform: rotate(30deg)
+            text-align: center
             .create-time
               font-size: 14px
               color: #777
+            .is-pass
+              font-size: 15px
+              &.allow
+                color: #12b7f5
+              &.reject
+                color: #f62836
+              &.yet
+                color: #ff6700
 </style>
