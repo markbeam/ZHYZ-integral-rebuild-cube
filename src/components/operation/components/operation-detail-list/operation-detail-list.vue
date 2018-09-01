@@ -9,9 +9,7 @@
         @pulling-up="onPullingUp">
         <!-- 能撤回 -->
         <cube-swipe class="list-content"
-          v-if="isWithdraw && personalInfo.user_type === '用户' ||
-            personalInfo.user_type === '教师' ||
-            personalInfo.user_type === '管理员'">
+                    v-if="isWithdraw && (personalInfo.user_type === '用户' || personalInfo.user_type === '教师')">
           <transition-group name="swipe" tag="ul">
             <li v-for="(item, index) in operations"
                 @click="selectItem(item)"
@@ -40,9 +38,7 @@
         </cube-swipe>
         <!-- 数据列表 -->
         <ul class="list-content"
-            v-if="!isWithdraw && personalInfo.user_type === '用户' ||
-            personalInfo.user_type === '教师' ||
-            personalInfo.user_type === '管理员'">
+            v-if="!isWithdraw && (personalInfo.user_type === '用户' || personalInfo.user_type === '教师')">
           <!-- 学生 -->
           <li @click="selectItem(item)"
               :key="item.id"
