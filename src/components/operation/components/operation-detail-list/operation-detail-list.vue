@@ -1,7 +1,7 @@
 <template>
   <div class="operation-detail-list">
     <div class="container">
-      <cube-scroll 
+      <cube-scroll
         ref="scroll"
         v-show="hasInfo && operations.length"
         :data="operations"
@@ -14,14 +14,14 @@
             personalInfo.user_type === '管理员'">
           <transition-group name="swipe" tag="ul">
             <li v-for="(item, index) in operations"
-              @click="selectItem(item)" 
-              :key="item.id"
-              class="list-item">
+                @click="selectItem(item)"
+                :key="item.id"
+                class="list-item">
               <cube-swipe-item
                 ref="swipeItem"
                 autoShrink
-                :class="{'withdrawed': item.more.set_failure_time}"
-                :btns="item.more.set_failure_time ? btnsWithdraw : btns"
+                :class="{'withdrawed': item.status === '撤回'}"
+                :btns="item.status === '撤回' ? btnsWithdraw : btns"
                 :index="index"
                 @btn-click="withdraw">
                 <div class="left">
@@ -31,8 +31,8 @@
                   <span class="time" v-if="item.create_time">{{ item.create_time | formatDate }}</span>
                 </div>
                 <div class="right">
-                  <p class="add-subtrac-score" 
-                    :style="{'color': item.score > 0 ? '#12b7f5' : '#f62836'}">{{ padLeftZero(item.score) }}</p>
+                  <p class="add-subtrac-score"
+                     :style="{'color': item.score > 0 ? '#12b7f5' : '#f62836'}">{{ padLeftZero(item.score) }}</p>
                 </div>
               </cube-swipe-item>
             </li>
@@ -40,15 +40,16 @@
         </cube-swipe>
         <!-- 数据列表 -->
         <ul class="list-content"
-          v-if="!isWithdraw && personalInfo.user_type === '用户' ||
+            v-if="!isWithdraw && personalInfo.user_type === '用户' ||
             personalInfo.user_type === '教师' ||
             personalInfo.user_type === '管理员'">
           <!-- 学生 -->
-          <li @click="selectItem(item)" 
-            :key="item.id"
-            class="list-item" 
-            v-for="item in operations">
-            <div class="wrapper">
+          <li @click="selectItem(item)"
+              :key="item.id"
+              class="list-item"
+              v-for="item in operations">
+            <div class="wrapper"
+              :class="{'withdrawed': item.status === '撤回'}">
               <div class="left">
                 <p class="title">{{ item.content }}</p>
                 <span class="klass" v-if="item.to_cls">{{ item.to_cls.name }}</span>
@@ -56,8 +57,8 @@
                 <span class="time" v-if="item.create_time">{{ item.create_time | formatDate }}</span>
               </div>
               <div class="right">
-                <p class="add-subtrac-score" 
-                :style="{'color': item.score > 0 ? '#12b7f5' : '#f62836'}">{{ padLeftZero(item.score) }}</p>
+                <p class="add-subtrac-score"
+                   :style="{'color': item.score > 0 ? '#12b7f5' : '#f62836'}">{{ padLeftZero(item.score) }}</p>
               </div>
             </div>
           </li>
@@ -65,13 +66,14 @@
 
         <!-- 数据列表 -->
         <ul class="list-content"
-          v-if="personalInfo.user_type === '学生'">
+            v-if="personalInfo.user_type === '学生'">
           <!-- 学生 -->
-          <li @click="selectItem(item)" 
-            :key="item.id"
-            class="list-item" 
-            v-for="item in operations">
-            <div class="wrapper">
+          <li @click="selectItem(item)"
+              :key="item.id"
+              class="list-item"
+              v-for="item in operations">
+            <div class="wrapper"
+              :class="{'withdrawed': item.status === '撤回'}">
               <div class="left">
                 <p class="title">{{ item.content }}</p>
                 <span class="klass" v-if="item.to_cls">{{ item.to_cls.name }}</span>
@@ -79,8 +81,8 @@
                 <span class="time" v-if="item.create_time">{{ item.create_time | formatDate }}</span>
               </div>
               <div class="right">
-                <p class="add-subtrac-score" 
-                :style="{'color': item.score > 0 ? '#12b7f5' : '#f62836'}">{{ padLeftZero(item.score) }}</p>
+                <p class="add-subtrac-score"
+                   :style="{'color': item.score > 0 ? '#12b7f5' : '#f62836'}">{{ padLeftZero(item.score) }}</p>
               </div>
             </div>
           </li>
@@ -88,12 +90,12 @@
       </cube-scroll>
       <!-- loading -->
       <div class="loading-container"
-        v-show="hasInfo && !operations.length">
+           v-show="hasInfo && !operations.length">
         <loading></loading>
       </div>
       <!-- 暂无数据 -->
-      <div class="no-result-container" 
-        v-show="!hasInfo && !operations.length">
+      <div class="no-result-container"
+           v-show="!hasInfo && !operations.length">
         <no-result></no-result>
       </div>
     </div>
@@ -103,16 +105,18 @@
 <script>
   import Loading from 'base/loading/loading'
   import NoResult from 'base/no-result/no-result'
-  import { openToast } from 'common/js/util'
-  import { formatDate } from 'common/js/date'
-  import { ERR_OK } from 'api/config'
-  import { getStudentOperationInfo,
+  import {openToast} from 'common/js/util'
+  import {formatDate} from 'common/js/date'
+  import {ERR_OK} from 'api/config'
+  import {
+    getStudentOperationInfo,
     getPersonalOperationInfo,
     getPersonalAddTypeList,
     getPersonalDeeTypeList,
     withdrawOperateHistory,
-    unWithdrawOperateHistory } from 'api/operation'
-  import { mapGetters } from 'vuex'
+    unWithdrawOperateHistory
+  } from 'api/operation'
+  import {mapGetters} from 'vuex'
 
   const OP_TYPE_STU = 0
   const OP_TYPE_ALL = 1
@@ -147,8 +151,8 @@
         btnsWithdraw: [
           {
             action: 'unWithdraw',
-            text: '取消撤回',
-            color: '#FF6700'
+            text: '恢复',
+            color: '#00ABFF'
           }
         ],
         hasInfo: true, // 是否有数据（该学生没被操作过）
@@ -181,11 +185,11 @@
         let OE = event
         OE.cancelBubble = true
         OE.stopPropagation()
-        if(this.operations[index].more.set_failure_time) {
-          this.$set(this.operations[index].more, 'set_failure_time', '')
+        if(this.operations[index].status === '撤回') {
+          this.$set(this.operations[index], 'status', '')
           this._unWithdrawOperateHistory(this.operations[index])
         } else {
-          this.$set(this.operations[index].more, 'set_failure_time', 'disables')
+          this.$set(this.operations[index], 'status', '撤回')
           this._withdrawOperateHistory(this.operations[index])
         }
       },
@@ -205,13 +209,13 @@
       _unWithdrawOperateHistory(item) {
         unWithdrawOperateHistory(item.id + '').then((res) => {
           if(res.code === ERR_OK) {
-            openToast(this, '取消撤回成功！')
+            openToast(this, '恢复成功！')
           } else {
             openToast(this, res.msg, 'error')
           }
         })
       },
-       _getOperationInfo() {
+      _getOperationInfo() {
         if(this.operationType === OP_TYPE_STU) {
           getStudentOperationInfo(this.data.id, this.pageIndex).then((res) => {
             // 如果没数据

@@ -1,6 +1,6 @@
 <template>
   <div class="operation-detail">
-    <cube-scroll 
+    <cube-scroll
       ref="scroll"
        v-if="data.id"
       :data="[data]">
@@ -16,13 +16,13 @@
         </div>
       </li>
       <!-- 操作者 -->
-      <li class="item">
+      <li class="item" v-if="data.from_user">
         <div class="wrap">
           <p class="title">
             <i class="zhyz-Man"></i>
             操作者
           </p>
-          <p class="text" v-if="data.from_user.name">{{ data.from_user.name }}</p>
+          <p class="text">{{ data.from_user.name }}</p>
         </div>
       </li>
       <!-- 被操作者 -->
@@ -42,7 +42,7 @@
             <i class="zhyz-banjiketang"></i>
             被操作班
           </p>
-          <p class="text" v-if="data.to_cls.name">{{ data.to_cls.name }}</p>
+          <p class="text" v-if="data.to_cls">{{ data.to_cls.name }}</p>
         </div>
       </li>
       <!-- 内容 -->
@@ -85,18 +85,28 @@
           <p class="text time" v-if="data.op_time">{{ data.op_time | formatDate }}</p>
         </div>
       </li>
-      <!-- 创建时间 -->
-      <li class="item">
+      <!-- 提交时间 -->
+      <li class="item"  v-if="data.create_time !== data.op_time">
         <div class="wrap">
           <p class="title">
             <i class="zhyz-time"></i>
-            创建时间
+            提交时间
           </p>
-          <p class="text time" v-if="data.create_time">{{ data.create_time | formatDate }}</p>
+          <p class="text time">{{ data.create_time | formatDate }}</p>
+        </div>
+      </li>
+      <!-- 撤回时间 -->
+      <li class="item"  v-if="data.revoke_time">
+        <div class="wrap">
+          <p class="title">
+            <i class="zhyz-time"></i>
+            撤回时间
+          </p>
+          <p class="text time">{{ data.revoke_time | formatDate }}</p>
         </div>
       </li>
       <!-- 是否使用拓展积分 -->
-      <li class="item">
+      <li class="item" v-if="data.score_type !== '未知'">
         <div class="wrap">
           <p class="title">
             <i class="zhyz-tuozhan"></i>
@@ -137,7 +147,7 @@
     },
     computed: {
       isUseExtraScoreText() {
-        return this.data.more.use_score_type === 1 ? '是' : '否'
+        return this.data.score_type === '拓展分' ? '是' : '否'
       }
     }
   }

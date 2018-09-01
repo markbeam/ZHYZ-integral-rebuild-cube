@@ -336,7 +336,7 @@
         }
         // 否则把班级加进去
         let arr = []
-        let _optime = ((this.operationTime - 60 * 60 * 24 * 1000 * 3) + '').substring(0, 10)
+        let _optime = (this.operationTime + '').substring(0, 10)
         // 如果有多个班级
         if(this.isMultiple) {
           this.multipleClassData.forEach((item) => {
