@@ -35,7 +35,7 @@
         <cube-scroll :data="topData"
           v-if="topData">
           <ul class="top-list">
-            <li class="item" 
+            <li class="item"
               :key="item.id"
               v-for="(item, index) in topData"
               @click="selectItem(item)">
@@ -67,7 +67,7 @@
         </div>
       </div>
       <!-- Loading box -->
-      <div class="loading-container" 
+      <div class="loading-container"
         v-show="!topData">
         <loading></loading>
       </div>
@@ -200,10 +200,10 @@
             this.selectedPicker.pickerActiveIndex = index
             this.selectedPicker.pickerActiveText = item.content
             this.selectedPicker.pickerActiveValue = item.value
-            
+
             // update rank data
             this._getRank()
-            
+
             this.$createToast({
               txt: `选择 ${item.content}`,
               type: 'correct',
@@ -222,7 +222,7 @@
             this.selectedCampusPicker.pickerActiveIndex = index
             this.selectedCampusPicker.pickerActiveText = item.content
             this.selectedCampusPicker.pickerActiveValue = item.value
-            
+
             // update rank data
             this.globalGId = item.value
             this.selectedCampusId = item.value
@@ -237,10 +237,10 @@
               pickerActiveText: '',
               pickerActiveValue: 0
             }
-            
+
             this._getDepartmentByCampusId()
             this._getRankAdvanced()
-            
+
             this.$createToast({
               txt: `选择 ${item.content}`,
               type: 'correct',
@@ -259,7 +259,7 @@
             this.selectedDepartmentPicker.pickerActiveIndex = index
             this.selectedDepartmentPicker.pickerActiveText = item.content
             this.selectedDepartmentPicker.pickerActiveValue = item.value
-            
+
             // update rank data
             this.globalGId = item.value
             this.selectedDepartmentId = item.value
@@ -269,10 +269,10 @@
               pickerActiveText: '',
               pickerActiveValue: 0
             }
-            
+
             this._getClassByDepartmenId()
             this._getRankAdvanced()
-            
+
             this.$createToast({
               txt: `选择 ${item.content}`,
               type: 'correct',
@@ -291,12 +291,12 @@
             this.selectedClassPicker.pickerActiveIndex = selectedIndex[0]
             this.selectedClassPicker.pickerActiveText = selectedText[0]
             this.selectedClassPicker.pickerActiveValue = selectedVal[0]
-            
+
             // update rank data
             this.globalGId = selectedVal[0]
             // this.selectedClassId = item.value
             this._getRankAdvanced()
-            
+
             this.$createToast({
               txt: `选择 ${selectedText}`,
               type: 'correct',
@@ -314,12 +314,12 @@
             this.selectedGradePicker.pickerActiveIndex = index
             this.selectedGradePicker.pickerActiveText = item.content
             this.selectedGradePicker.pickerActiveValue = item.value
-            
+
             // update rank data
             this.globalGrade = item.value
             this.selectedGradeId = item.value
             this._getRankAdvanced()
-            
+
             this.$createToast({
               txt: `选择 ${item.content}`,
               type: 'correct',
