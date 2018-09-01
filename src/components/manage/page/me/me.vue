@@ -80,7 +80,7 @@
             <!-- 基础积分 -->
             <li class="bar-item">
               <p class="title">我管理的班级</p>
-              <p class="score-text">1</p>
+              <p class="score-text">{{ myTeachClsCount }}</p>
             </li>
             <li class="bar-item">
               <p class="title">基础积分</p>
@@ -239,13 +239,19 @@
 
 <script>
   import SCcs from 'components/operation/components/s-ccs/s-ccs'
+  import { ERR_OK } from 'api/config'
+  import { getMyTeachCls } from 'api/mesystem'
   import { mapGetters } from 'vuex'
   
   export default {
     data() {
       return {
-        cls: {}
+        cls: {},
+        myTeachClsCount: 0
       }
+    },
+    created() {
+      this._getMyTeachCls()
     },
     methods: {
       viewMesystem() {
@@ -271,6 +277,13 @@
         })
         this.$router.push({
           name: 'mesystem'
+        })
+      },
+      _getMyTeachCls() {
+        getMyTeachCls().then((res) => {
+          if(res.code === ERR_OK) {
+            this.myTeachClsCount = res.data.length
+          }
         })
       }
     },
