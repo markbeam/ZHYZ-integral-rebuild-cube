@@ -71,7 +71,7 @@
               </p>
               <p class="text">
                 <span class="tip-text" v-if="!operationTimeText">
-                  请选择
+                  现在
                   <i class="zhyz-right"></i>
                 </span>
                 <span>{{ operationTimeText }}</span>
