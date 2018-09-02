@@ -261,7 +261,7 @@
           &:not(:last-child)
             margin-right: 3px
           .wrap
-            padding: 16px 0 22px
+            padding: 16px 0
             .icon
               width: 100%;
               height: 50px;
