@@ -72,7 +72,7 @@
             .title
               color: $color-exit
           .title
-            flex: 2
+            flex: 1
             color: $color-light-black
             [class^="zhyz-"], [class*=" zhyz-"]
               font-size: $font-size-large
