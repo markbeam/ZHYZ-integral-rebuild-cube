@@ -279,7 +279,8 @@
               &.ic-feature
                 bg-image('feature')
             .text
-              margin-top: 15px;
+              margin-top: 14px;
               text-align: center;
+              font-size: 15px;
               font-weight: 700;
 </style>
