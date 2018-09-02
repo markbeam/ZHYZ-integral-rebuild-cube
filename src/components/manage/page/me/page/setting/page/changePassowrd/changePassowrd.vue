@@ -1,6 +1,6 @@
 <template>
   <div class="change-password c-page">
-    <m-header title="修改密码" 
+    <m-header title="修改密码"
       :is-show-close-icon="true"
       back-page="me"></m-header>
     <div class="form-container">
@@ -10,14 +10,13 @@
         <cube-input
           v-model="oldPassword"
           placeholder="请先输入旧密码"
-          @keydown.enter.native="runChange"
           type="password"
           clearable
           :eye="{open: false, reverse: false}"
         ></cube-input>
       </div>
       <div class="item">
-        <p class="title">新密码；</p>
+        <p class="title">新密码：</p>
         <!-- 新密码 -->
         <cube-input
           v-model="newPassword"
@@ -27,6 +26,23 @@
           clearable
           :eye="{open: false, reverse: false}"
         ></cube-input>
+      </div>
+      <div class="item">
+        <p class="title">确认密码：</p>
+        <!-- 确认密码 -->
+        <cube-input
+          v-model="rePassword"
+          placeholder="请确认新密码"
+          @keydown.enter.native="runChange"
+          type="password"
+          clearable
+        ></cube-input>
+      </div>
+      <div class="item">
+        <p class="title">* 密码必须包含数字和字母</p>
+      </div>
+      <div class="item">
+        <p class="title">* 密码长度8位以上</p>
       </div>
       <div class="btn-container">
         <cube-button :light="true"
@@ -48,7 +64,8 @@
     data() {
       return {
         oldPassword: '',
-        newPassword: ''
+        newPassword: '',
+        rePassword: ''
       }
     },
     methods: {
@@ -57,8 +74,23 @@
         this._changePassword()
       },
       _changePassword() {
-        if(!this.oldPassword || !this.newPassword) {
-          openToast(this, '账号或密码不能为空！', 'error')
+        if(!this.oldPassword) {
+          openToast(this, '旧密码不能为空！', 'error')
+          return
+        }
+        if(!this.newPassword) {
+          openToast(this, '新密码不能为空！', 'error')
+          return
+        }
+
+        var regex = /(?=.*[0-9])(?=.*[a-zA-Z]).{8,}/
+        if(!regex.test(this.newPassword)) {
+          openToast(this, '新密码不符合规则！', 'error')
+          return
+        }
+
+        if(this.newPassword !== this.rePassword) {
+          openToast(this, '两次密码不一致！', 'error')
           return
         }
         this._initData()
