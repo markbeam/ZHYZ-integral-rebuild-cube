@@ -16,7 +16,7 @@
   @import "~common/stylus/index"
   @import "~common/stylus/mixin"
   @import "~common/stylus/variable"
-  
+
   #app
     width: 100%
     height: 100%
@@ -68,7 +68,7 @@
           overflow: hidden
           &.exit
             padding: 16px
-            text-align: center              
+            text-align: center
             .title
               color: $color-exit
           .title
