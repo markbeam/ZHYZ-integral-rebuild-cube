@@ -3,6 +3,9 @@
     <div class="m-header">
       <div class="icon"></div>
       <h1 class="text">一职德育积分系统</h1>
+      <router-link tag="div" class="mine" to="/me">
+        <i class="icon-mine zhyz-me"></i>
+      </router-link>
     </div>
     <div class="container">
       <cube-scroll
@@ -232,9 +235,10 @@
         right: 0
         .icon-mine
           display: block
-          padding: 12px
+          width: 50px
           font-size: 20px
           color: $color-light-black
+          line-height: 50px
     .banner
       width: 100%
       height: 200px
