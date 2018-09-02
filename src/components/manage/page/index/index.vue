@@ -237,7 +237,7 @@
           color: $color-light-black
     .banner
       width: 100%
-      height: 207px
+      height: 200px
       overflow: hidden
     .btn-container
       margin-top: 6px
