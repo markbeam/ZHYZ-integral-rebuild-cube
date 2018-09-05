@@ -3,162 +3,38 @@
     <div class="m-header">
       <div class="icon"></div>
       <h1 class="text">一职德育积分系统</h1>
-      <router-link tag="div" class="mine" to="/me">
-        <i class="icon-mine zhyz-me"></i>
-      </router-link>
     </div>
     <div class="container">
-      <cube-scroll
-        ref="scroll"
-        :data="[personalInfo]">
+      <cube-scroll ref="scroll">
         <!-- 轮播图 -->
         <div class="banner">
           <cube-slide :data="baseList"
-            loop
-            auto-play
-            :interval="3000"></cube-slide>
+                      loop
+                      auto-play
+                      :interval="3000"></cube-slide>
         </div>
-        <!-- 功能按钮 用户 & 教师 -->
-        <div class="btn-container"
-          v-if="personalInfo.user_type === '教师' ||
-            personalInfo.user_type === '用户' ||
-            personalInfo.user_type === '学生处' ||
-            personalInfo.user_type === '学生会' ||
-            personalInfo.user_type === '管理员'">
-          <ul class="btn-list">
+        <!-- 功能按钮 -->
+        <div class="btn-container">
+          <div class="btn-title-container">
+            <h3 class="btn-box-title">所有应用</h3>
+          </div>
+          <ul class="btn-list"
+              v-for="menu in mineMenu">
             <li class="item">
               <router-link tag="div"
-                class="wrap"
-                :to="{name: 'operateStudent'}">
+                           class="wrap"
+                           :name="menu.routeLink.attrs.name"
+                           :to="menu.routeLink.attrs.to">
                 <!-- icon 图片 -->
-                <div class="icon ic-operate-student"></div>
-                <p class="text">操作学生</p>
-              </router-link>
-            </li>
-            <li class="item">
-              <router-link tag="div"
-                class="wrap"
-                name="disableAlive"
-                :to="{name: 'searchStudent'}">
-                <!-- icon 图片 -->
-                <div class="icon ic-search-student"></div>
-                <p class="text">查询学生</p>
-              </router-link>
-            </li>
-            <li class="item">
-              <router-link tag="div"
-                class="wrap"
-                :to="{name: 'personalOperationDetailList'}">
-                <!-- icon 图片 -->
-                <div class="icon ic-operate-detail"></div>
-                <p class="text">操作详情</p>
-              </router-link>
-            </li>
-            <li class="item">
-              <router-link tag="div"
-                class="wrap"
-                :to="{name: 'application'}">
-                <!-- icon 图片 -->
-                <div class="icon ic-apply"></div>
-                <p class="text">申请</p>
-              </router-link>
-            </li>
-          </ul>
-          <!-- 2 -->
-          <ul class="btn-list">
-            <!-- 操作班级积分 -->
-            <li class="item" v-if="personalInfo.user_type === '用户' ||
-              personalInfo.user_type === '管理员' ||
-              personalInfo.user_type === '学生处' ||
-              personalInfo.user_type === '学生会'">
-              <router-link tag="div"
-                class="wrap"
-                :to="{name: 'operateClass'}">
-                <!-- icon 图片 -->
-                <div class="icon ic-operate-student"></div>
-                <p class="text">操作班级积分</p>
-              </router-link>
-            </li>
-            <li class="item">
-              <keep-alive>
-                <router-link tag="div"
-                  class="wrap"
-                  :to="{name: 'rank'}">
-                  <!-- icon 图片 -->
-                  <div class="icon ic-apply"></div>
-                  <p class="text">积分排行榜</p>
-                </router-link>
-              </keep-alive>
-            </li>
-            <li class="item">
-              <router-link tag="div"
-                class="wrap"
-                :to="{name: 'feature'}">
-                <!-- icon 图片 -->
-                <div class="icon ic-feature"></div>
-                <p class="text">小功能</p>
+                <div class="icon"
+                     :class="menu.icon"></div>
+                <p class="text">{{ menu.text }}</p>
               </router-link>
             </li>
           </ul>
         </div>
-        <!-- 功能按钮 学生 -->
-        <div class="btn-container"
-          v-if="personalInfo.user_type === '学生'">
-          <ul class="btn-list">
-            <li class="item">
-              <router-link tag="div"
-                class="wrap"
-                name="disableAlive"
-                :to="{name: 'searchStudent'}">
-                <!-- icon 图片 -->
-                <div class="icon ic-search-student"></div>
-                <p class="text">查询学生</p>
-              </router-link>
-            </li>
-            <li class="item">
-              <router-link tag="div"
-                class="wrap"
-                :to="{name: 'personalOperationDetailList'}">
-                <!-- icon 图片 -->
-                <div class="icon ic-operate-detail"></div>
-                <p class="text">操作详情</p>
-              </router-link>
-            </li>
-            <li class="item">
-              <router-link tag="div"
-                class="wrap"
-                :to="{name: 'application'}">
-                <!-- icon 图片 -->
-                <div class="icon ic-apply"></div>
-                <p class="text">申请</p>
-              </router-link>
-            </li>
-          </ul>
-          <!-- 2 -->
-          <ul class="btn-list">
-            <!-- 小功能 -->
-            <li class="item">
-              <router-link tag="div"
-                class="wrap"
-                :to="{name: 'feature'}">
-                <!-- icon 图片 -->
-                <div class="icon ic-feature"></div>
-                <p class="text">小功能</p>
-              </router-link>
-            </li>
-            <li class="item">
-              <keep-alive>
-                <router-link tag="div"
-                  class="wrap"
-                  :to="{name: 'rank'}">
-                  <!-- icon 图片 -->
-                  <div class="icon ic-apply"></div>
-                  <p class="text">积分排行榜</p>
-                </router-link>
-              </keep-alive>
-            </li>
-          </ul>
-        </div>
+        <!-- 占位 -->
+        <div style="height: 116px"></div>
       </cube-scroll>
     </div>
     <transition name="slide">
@@ -175,19 +51,177 @@
 <script>
   import { mapGetters } from 'vuex'
 
+  const menuList = [
+    {
+      id: 'operate-student',
+      text: '操作学生',
+      icon: 'ic-operate-student',
+      routeLink: {
+        attrs: {
+          to: {
+            name: 'operateStudent'
+          }
+        }
+      }
+    },
+    {
+      id: 'search-student',
+      text: '查询学生',
+      icon: 'ic-search-student',
+      routeLink: {
+        attrs: {
+          name: 'disableAlive',
+          to: {
+            name: 'searchStudent'
+          }
+        }
+      }
+    },
+    {
+      id: 'operate-detail',
+      text: '操作详情',
+      icon: 'ic-operate-detail',
+      routeLink: {
+        attrs: {
+          to: {
+            name: 'personalOperationDetailList'
+          }
+        }
+      }
+    },
+    {
+      id: 'apply',
+      text: '申请',
+      icon: 'ic-apply',
+      routeLink: {
+        attrs: {
+          to: {
+            name: 'application'
+          }
+        }
+      }
+    },
+    {
+      id: 'operate-class',
+      text: '操作班级分',
+      icon: 'ic-operate-class',
+      routeLink: {
+        attrs: {
+          to: {
+            name: 'operateClass'
+          }
+        }
+      }
+    },
+    {
+      id: 'rank',
+      text: '积分排行榜',
+      icon: 'ic-rank',
+      routeLink: {
+        attrs: {
+          to: {
+            name: 'rank'
+          }
+        }
+      }
+    },
+    {
+      id: 'feature',
+      text: '小功能',
+      icon: 'ic-feature',
+      routeLink: {
+        attrs: {
+          to: {
+            name: 'feature'
+          }
+        }
+      }
+    }
+  ]
+
   export default {
     data() {
       return {
         baseList: [{
           url: 'javascript:',
-          image: '/img/1.jpg'
+          image: 'static/school-bg1.jpg'
         }, {
           url: 'javascript:',
-          image: '/img/2.jpg'
+          image: 'static/school-bg2.jpg'
         }, {
           url: 'javascript:',
-          image: '/img/3.jpg'
-        }]
+          image: 'static/school-bg3.jpg'
+        }],
+        mineMenu: []
+      }
+    },
+    created: function() {
+      this._initMenu()
+    },
+    watch: {
+      personalInfo: {
+        handler: function(val, oldval) {
+          this._initMenu()
+        }
+      }
+    },
+    methods: {
+      _initMenu: function() {
+        let lists = []
+
+        switch (this.personalInfo.user_type) {
+          case '用户':
+            lists = lists.concat([
+              'search-student',
+              'operate-student',
+              'operate-class',
+              'operate-detail',
+              'apply',
+              'rank',
+              'feature'
+            ])
+            break
+
+          case '教师':
+            lists = lists.concat([
+              'operate-student',
+              'search-student',
+              'operate-detail',
+              'apply',
+              'rank',
+              'feature'
+            ])
+            break
+
+          case '学生':
+            lists = lists.concat([
+              'search-student',
+              'operate-detail',
+              'apply',
+              'rank',
+              'feature'
+            ])
+            break
+
+          default:
+            lists = lists.concat([
+              'rank',
+              'feature'
+            ])
+            break
+        }
+
+        this.mineMenu = []
+
+        // 处理每个用户类型的按钮
+        for(let i in lists) {
+          for(let j1 in menuList) {
+            if(lists[i] === menuList[j1].id) {
+              this.mineMenu.push(menuList[j1])
+              break
+            }
+          }
+        }
       }
     },
     computed: {
@@ -195,8 +229,7 @@
         'personalInfo'
       ])
     },
-    components: {
-    }
+    components: {}
   }
 </script>
 
@@ -206,7 +239,8 @@
 
   .index
     position: relative
-    z-index: 10
+    height: 100vh
+    overflow: hidden
     .m-header
       position: relative
       height: 50px
@@ -241,49 +275,60 @@
           line-height: 50px
     .banner
       width: 100%
-      height: 200px
+      height: 120px
       overflow: hidden
+    .container
+      height: 100%
     .btn-container
-      margin-top: 6px
-      padding: 0 5px;
+      margin: 14px 14px 0
+      padding-bottom: 22px
+      background: #ffffff
+      border-radius: 16px
+      overflow hidden
+      box-shadow: 0 0 15px rgba(0, 0, 0, .1)
+      .btn-title-container
+        padding-left: 14px
+        border-bottom: 1px solid #eee
+        line-height: 40px
+        .btn-box-title
+          font-size: 16px
+          font-weight: 700
       .btn-list
-        margin-bottom: 3px
-        width: 100%
-        display: flex
-        align-items: center
-        justify-content: space-between
         box-sizing: border-box
         .item
-          flex: 1
+          float: left
+          width: 25%
           box-sizing: border-box
-          border-radius: 2px
           text-align: center
-          background-color: $color-white
-          transition: box-shadow .3s
           &:active
             box-shadow: 0 10px 20px $color-transparent-black-i
-          &:not(:last-child)
-            margin-right: 3px
           .wrap
-            padding: 16px 0
+            padding: 22px 0 0
             .icon
-              width: 100%;
-              height: 50px;
-              background-size: 45px 45px;
+              height: 30px;
+              background-size: auto 100%;
               background-position: center;
               background-repeat: no-repeat;
               &.ic-operate-student
-                bg-image('inputNum')
+                bg-image('student')
+              &.ic-operate-class
+                bg-image('class')
               &.ic-search-student
-                bg-image('search')
+                bg-image('search1')
               &.ic-operate-detail
                 bg-image('detail')
               &.ic-apply
-                bg-image('apply')
+                bg-image('leave')
               &.ic-feature
                 bg-image('feature')
+              &.ic-rank
+                bg-image('rank')
             .text
-              margin-top: 14px;
+              /*margin-top: 14px;*/
+              margin-top: 16px;
               text-align: center;
-              font-weight: 700;
+              /*font-weight: 700;*/
+              font-size: 14px
+              text-overflow: ellipsis;
+              white-space: nowrap;
 </style>

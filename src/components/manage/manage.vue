@@ -11,7 +11,6 @@
   import MFooter from 'base/m-footer/m-footer'
   import { getPersonalInfo } from 'api/index'
   import { mapMutations } from 'vuex'
-  import { openToast } from 'common/js/util'
   import { ERR_OK } from 'api/config'
 
   export default {
@@ -30,7 +29,6 @@
         getPersonalInfo().then((res) => {
           if(res.code === ERR_OK) {
             this.setPersonalInfo(res.data) // 保存个人信息存到 vuex 里
-            openToast(this, '登录成功')
           } else {
             this.$router.push('/login')
           }

@@ -1,15 +1,15 @@
 <template>
   <div class="login">
-    <div class="login-container">
-      <!-- 登陆头部 -->
-      <div class="login-header">
-        <!-- 学校 logo -->
-        <div class="zhyz-logo">
-          <div class="icon"></div>
-        </div>
-        <!-- 登陆文字 -->
-        <h2 class="title">一职德育积分系统</h2>
+    <!-- 登陆头部 -->
+    <div class="login-header">
+      <!-- 学校 logo -->
+      <div class="zhyz-logo">
+        <div class="icon"></div>
       </div>
+      <!-- 登陆文字 -->
+      <h2 class="title">一职德育积分系统</h2>
+    </div>
+    <div class="login-container">
       <!-- 登陆框 -->
       <form class="login-form">
         <!-- 账号 -->
@@ -53,12 +53,12 @@
             <span class="text">记住密码</span>
           </div>
         </div>
-        <!-- submit btn -->
-        <div class="form-item btn">
-          <button type="primary" class="submit-btn"
-            @click.prevent.stop="runLogin">立即登陆</button>
-        </div>
       </form>
+    </div>
+    <!-- submit btn -->
+    <div class="btn">
+      <button type="primary" class="submit-btn"
+              @click.prevent.stop="runLogin">立即登陆</button>
     </div>
     <cube-popup type="my-popup" ref="fullscreenLoading">
       <cube-loading :size="28"></cube-loading>
@@ -81,18 +81,31 @@
     data() {
       return {
         userLogin: loadInfo(LOGIN_KEY).userLogin,
-        userPassword: loadInfo(LOGIN_KEY).userPassword,
+        userPassword: '',
+        encryptPassword: '',
         isShowPwd: false,
         requestQuery: [],
         isSavePwd: loadInfo(SAVEPWD_KEY)
       }
     },
+    created() {
+      let userPassword = loadInfo(LOGIN_KEY).userPassword
+      if(userPassword.length === 32) {
+        this.userPassword = '      '
+        this.encryptPassword = userPassword
+      } else {
+        this.userPassword = userPassword
+      }
+    },
     methods: {
       // 运行登陆
       runLogin() {
-        if(!this.userLogin || !this.userPassword) {
-          // 提示请输入账号 or 密码
-          openToast(this, '账号或密码不能为空！', 'error')
+        if(!this.userLogin) {
+          openToast(this, '请输入账号！', 'error')
+          return
+        }
+        if(!this.userPassword.trim() && !this.encryptPassword) {
+          openToast(this, '请输入密码！', 'error')
           return
         }
         this._checkLogin()
@@ -104,7 +117,6 @@
       // 是否保存密码
       toggleSavePassword() {
         this.isSavePwd = !this.isSavePwd
-        saveInfo(SAVEPWD_KEY, this.isSavePwd)
       },
       // 清空登陆账号
       clearLoginNum() {
@@ -128,14 +140,19 @@
               // 保存登陆账号到本地存储
               saveInfo(LOGIN_KEY, {
                 userLogin: this.userLogin,
-                userPassword: this.isSavePwd ? this.userPassword : ''
+                userPassword: this.encryptPassword
               })
+              saveInfo(SAVEPWD_KEY, this.isSavePwd)
+              // 隐藏密码,不然退出登录后能看到原密码
+              this.userPassword = '      '
             } else {
               // 清除本地存储的登陆账号
               saveInfo(LOGIN_KEY, {
                 userLogin: this.userLogin,
                 userPassword: ''
               })
+              // 清空密码
+              this.userPassword = ''
             }
           } else {
             openToast(this, res.msg, 'error')
@@ -155,9 +172,13 @@
       },
       _initData() {
         let arr = []
+        // 如果密码框有内容
+        if(this.userPassword.trim()) {
+          this.encryptPassword = md5(this.userPassword)
+        }
         arr.push({
           account: this.userLogin,
-          password: md5(this.userPassword)
+          password: this.encryptPassword
         })
         return arr
       },
@@ -174,38 +195,41 @@
   @import "~common/stylus/variable"
 
   .login
+    display: flex
     width: 100%
     height: 100%
+    min-height: 388px
+    background: $color-white
+    flex-direction: column
+    .login-header
+      padding: 24px 0
+      background: $color-background
+      .zhyz-logo
+        .icon
+          height: 60px
+          bg-image('logo')
+          background-size: auto 100%
+          background-position: center
+          background-repeat: no-repeat
+      .title
+        margin-top: 16px
+        text-align: center
+        font-size: $font-size-large-x
     .login-container
-      position: relative
-      top: 40%
-      margin: 0 auto
-      padding: 0 20px
-      box-sizing: border-box
-      transform: translate3d(0, -50%, 0)
-      .login-header
-        padding: 60px 0 22px
-        .zhyz-logo
-          width: 70px
-          height: 70px
-          margin: 0 auto 22px
-          .icon
-            width: 70px
-            height: 70px
-            bg-image('logo')
-            background-size: 70px 70px
-        .title
-          text-align: center
-          font-size: $font-size-large-x
+      padding: 0 30px
+      display: flex
+      flex: 1
+      align-items: center
       .login-form
+        width: 100%
         .form-item
           position: relative
-          &.btn
-            padding: 24px 0 5px
           .icon
-            display: inline-block
-            width: 8%
+            position: absolute
+            top: 15px
+            width: 32px
             text-align: center
+            color: #aaaaaa
             font-size: $font-size-large
           .right-icon
             position: absolute
@@ -222,33 +246,16 @@
               color: $color-sub !important
           input
             display: inline-block
-            padding: 1rem 0 1rem 10px
-            width: 90%
+            padding: 1rem 0 1rem 35px
+            width: 100%
             font-size: $font-size-medium
             box-sizing: border-box
-            background: $color-white
-            border-bottom: 1px solid rgba(0, 0, 0, 0)
-            &.user-login
-              border-radius: 14px 14px 0 0
-              border-color: $color-border
-            &.user-password
-              border-radius: 0 0 14px 14px
-          .submit-btn
-            margin-top: 10px
-            padding: .8rem 0
-            width: 100%
-            border-radius: 100px
-            color: $color-white
-            text-align: center
-            font-size: $font-size-medium-x
-            background-color: $color-sub
-            &:active
-              background-color: #2a97d6
+            border-bottom: 1px solid $color-border
+            &:focus
+              border-color: #33b4ff
           .save-password
-            position: absolute
-            left: calc(20px + 4%)
             z-index: 20
-            margin-top: 10px
+            margin-top: 20px
             font-size: 0
             .checkbox
               display: inline-block
@@ -264,4 +271,14 @@
                 background-color: $color-sub
             .text
               font-size: $font-size-medium
+    .btn
+      .submit-btn
+        padding: 1.4rem 0
+        width: 100%
+        color: $color-white
+        text-align: center
+        font-size: $font-size-medium-x
+        background-color: $color-sub
+        &:active
+          background-color: #2a97d6
 </style>
