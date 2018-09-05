@@ -165,12 +165,12 @@
         askForLeave(this.requestQuery).then((res) => {
           if(res.code === ERR_OK) {
             this.$emit('applySuccessful')
-            this.$router.back()
+            // this.$router.back()
             setTimeout(() => {
               this.$router.push({name: 'myApplication'})
-            }, 50)
+            }, 3000)
           } else {
-            openToast(this, '申请失败，请检查填写的参数', 'error')
+            openToast(this, res.msg, 'error')
           }
         })
       },

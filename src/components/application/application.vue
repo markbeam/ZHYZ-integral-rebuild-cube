@@ -79,7 +79,6 @@
   import MHeader from 'base/m-header/m-header'
   import SCcs from 'components/operation/components/s-ccs/s-ccs'
   import { mapGetters } from 'vuex'
-  import { openToast } from 'common/js/util'
 
   export default {
     data() {
@@ -98,7 +97,7 @@
         })
       },
       applySuccessful() {
-        openToast(this, '申请成功！')
+        this.$createToast({ txt: '您的申请已经提交', mask: true }).show()
       }
     },
     computed: {

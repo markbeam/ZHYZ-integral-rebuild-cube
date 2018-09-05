@@ -247,7 +247,7 @@
     data() {
       return {
         cls: {},
-        myTeachClsCount: 0
+        myTeachClsCount: null
       }
     },
     created() {

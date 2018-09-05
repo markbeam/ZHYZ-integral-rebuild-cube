@@ -167,6 +167,7 @@
         studentData: null,
         operationTime: 0,
         operationTimeText: '',
+        re: false,
         requestQuery: [],
         selectedProjectId: '', // 选中的项目 ID
         selectedProjectText: '', // 选中的项目 Text
@@ -200,7 +201,11 @@
     },
     methods: {
       perform() {
-        this._operateStudentScore()
+      if(!this.re) {
+          this.$createToast({ txt: '操作正在提交中', mask: true }).show()
+          this._operateStudentScore()
+          this.re = true
+        }
       },
       // 选择时间 --- time picker
       /* selectOperationTime() {
@@ -255,6 +260,7 @@
         if(index === 0) {
           // 选择完加减分后
           await getAllCategoryNew(pmType, OPERATION_TYPE).then((res) => {
+            this.re = false
             if(res.code === LOGIN_ERR) {
               loginFailure()
             }
