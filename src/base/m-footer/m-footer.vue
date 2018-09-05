@@ -28,6 +28,7 @@
     bottom: 0
     width: 100%
     background-color: $color-white
+    z-index: 10
     .tab
       display: flex
       align-items: center
